@@ -12,9 +12,18 @@ View your app in AI Studio: https://ai.studio/apps/drive/1BAds6u7fqDXIX3hmwYJeJ6
 
 **Prerequisites:**  Node.js
 
+This project runs without configuring a Gemini API key.
+
 
 1. Install dependencies:
    `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
+2. Run the app:
    `npm run dev`
+
+## Deploy to GitHub Pages
+
+1. Build the site:
+   `npm run build`
+2. In GitHub, open **Settings → Pages**.
+3. Under **Build and deployment**, select **GitHub Actions** as the source.
+4. Push to `main` to trigger the workflow and publish the `dist/` build.
