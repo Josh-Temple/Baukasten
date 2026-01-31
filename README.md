@@ -12,6 +12,8 @@ View your app in AI Studio: https://ai.studio/apps/drive/1BAds6u7fqDXIX3hmwYJeJ6
 
 **Prerequisites:**  Node.js
 
+This project runs without configuring a Gemini API key.
+
 
 1. Install dependencies:
    `npm install`
