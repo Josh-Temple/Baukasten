@@ -34,11 +34,13 @@ export const PROJECTS: Project[] = [
     
     techStack: ['React 19', 'Vite', 'Gemini API', 'Tailwind CSS'],
     repoLink: '#',
+
+    cardImage: '/screenshots/irogenix/01_start.png',
     
     screenshots: [
-      { caption: 'Palette Synthesizer' },
-      { caption: 'Contrast Validation' },
-      { caption: 'Code Export' }
+      { caption: 'Palette Synthesizer', src: '/screenshots/irogenix/02_input.png' },
+      { caption: 'Contrast Validation', src: '/screenshots/irogenix/03_result.png' },
+      { caption: 'Code Export', src: '/screenshots/irogenix/04_detail.png' }
     ]
   },
   {
