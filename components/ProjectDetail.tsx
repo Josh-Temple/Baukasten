@@ -15,6 +15,15 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
     { caption: 'Interface Logic' }
   ];
 
+  const resolveAssetUrl = (path?: string) => {
+    if (!path) return null;
+    const baseHref = window.location.href.endsWith('/')
+      ? window.location.href
+      : `${window.location.href}/`;
+    const baseUrl = new URL(import.meta.env.BASE_URL, baseHref);
+    return new URL(path.replace(/^\/+/, ''), baseUrl).toString();
+  };
+
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const { scrollLeft, scrollWidth, clientWidth } = e.currentTarget;
     if (scrollWidth <= clientWidth) return;
@@ -83,19 +92,30 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                 {slides.map((slide, i) => (
                     <div key={i} className="min-w-[75%] snap-center">
                         <div className="bg-white rounded-[3.5rem] border-[8px] border-white overflow-hidden aspect-[9/19] flex items-center justify-center shadow-float group/slide relative">
-                             {/* Abstract placeholder for high-end mobile interface */}
-                             <div className="w-full h-full bg-slate-50 flex flex-col p-10 transition-all duration-1000 group-hover/slide:bg-white">
-                                <div className="w-full h-1 bg-slate-100 rounded-full mb-8"></div>
-                                <div className="space-y-4 opacity-10 group-hover/slide:opacity-25 transition-opacity duration-1000">
-                                    <div className="h-40 w-full bg-slate-300 rounded-3xl"></div>
-                                    <div className="h-6 w-3/4 bg-slate-300 rounded-full"></div>
-                                    <div className="h-6 w-1/2 bg-slate-300 rounded-full"></div>
-                                    <div className="mt-20 flex flex-col items-center">
+                             {slide.src ? (
+                                <img
+                                  src={resolveAssetUrl(slide.src) ?? undefined}
+                                  alt={slide.caption}
+                                  className="h-full w-full object-cover"
+                                  loading="lazy"
+                                />
+                              ) : (
+                                <>
+                                  {/* Abstract placeholder for high-end mobile interface */}
+                                  <div className="w-full h-full bg-slate-50 flex flex-col p-10 transition-all duration-1000 group-hover/slide:bg-white">
+                                    <div className="w-full h-1 bg-slate-100 rounded-full mb-8"></div>
+                                    <div className="space-y-4 opacity-10 group-hover/slide:opacity-25 transition-opacity duration-1000">
+                                      <div className="h-40 w-full bg-slate-300 rounded-3xl"></div>
+                                      <div className="h-6 w-3/4 bg-slate-300 rounded-full"></div>
+                                      <div className="h-6 w-1/2 bg-slate-300 rounded-full"></div>
+                                      <div className="mt-20 flex flex-col items-center">
                                         <span className="material-icons text-8xl mb-4">app_shortcut</span>
                                         <p className="text-[0.6rem] font-black uppercase tracking-widest">{slide.caption}</p>
+                                      </div>
                                     </div>
-                                </div>
-                             </div>
+                                  </div>
+                                </>
+                              )}
                              {/* Gloss Overlay */}
                              <div className="absolute inset-0 bg-gradient-to-tr from-black/5 via-transparent to-white/20 pointer-events-none"></div>
                         </div>
