@@ -74,11 +74,12 @@ export const PROJECTS: Project[] = [
     
     techStack: ['React', 'Dexie.js', 'Recharts', 'Tailwind CSS'],
     repoLink: '#',
-    
+
+    cardImage: '/screenshots/circuit/01_start.png',
     screenshots: [
-      { caption: 'Cockpit View' },
-      { caption: 'Telemetry Dashboard' },
-      { caption: 'Engine Mapping' }
+      { caption: 'Cockpit View', src: '/screenshots/circuit/02_main.png' },
+      { caption: 'Telemetry Dashboard', src: '/screenshots/circuit/03_result.png' },
+      { caption: 'Engine Mapping', src: '/screenshots/circuit/04_stats.png' }
     ]
   },
   {
