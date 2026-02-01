@@ -34,5 +34,6 @@ export interface Project {
   techStack?: string[];
   repoLink?: string;
   
-  screenshots?: { caption: string }[];
+  cardImage?: string;
+  screenshots?: { caption: string; src?: string }[];
 }
