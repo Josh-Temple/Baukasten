@@ -15,7 +15,14 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
     { caption: 'Interface Logic' }
   ];
 
-  const assetBase = import.meta.env.BASE_URL;
+  const resolveAssetUrl = (path?: string) => {
+    if (!path) return null;
+    const baseHref = window.location.href.endsWith('/')
+      ? window.location.href
+      : `${window.location.href}/`;
+    const baseUrl = new URL(import.meta.env.BASE_URL, baseHref);
+    return new URL(path.replace(/^\/+/, ''), baseUrl).toString();
+  };
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const { scrollLeft, scrollWidth, clientWidth } = e.currentTarget;
@@ -87,8 +94,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                         <div className="bg-white rounded-[3.5rem] border-[8px] border-white overflow-hidden aspect-[9/19] flex items-center justify-center shadow-float group/slide relative">
                              {slide.src ? (
                                 <img
-                                  src={`${assetBase}${slide.src.replace(/^\//, '')}`}
-                                  src={slide.src}
+                                  src={resolveAssetUrl(slide.src) ?? undefined}
                                   alt={slide.caption}
                                   className="h-full w-full object-cover"
                                   loading="lazy"

@@ -6,9 +6,16 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps & { onClick: () => void }> = ({ project, onClick }) => {
-  const cardImage = project.cardImage
-    ? `${import.meta.env.BASE_URL}${project.cardImage.replace(/^\//, '')}`
-    : null;
+  const resolveAssetUrl = (path?: string) => {
+    if (!path) return null;
+    const baseHref = window.location.href.endsWith('/')
+      ? window.location.href
+      : `${window.location.href}/`;
+    const baseUrl = new URL(import.meta.env.BASE_URL, baseHref);
+    return new URL(path.replace(/^\/+/, ''), baseUrl).toString();
+  };
+
+  const cardImage = resolveAssetUrl(project.cardImage);
 
   return (
     <section className="grid grid-cols-12 gap-8 items-center w-full max-w-md mx-auto px-6 group/item">
@@ -22,9 +29,6 @@ export const ProjectCard: React.FC<ProjectCardProps & { onClick: () => void }> =
           {cardImage && (
             <img
               src={cardImage}
-          {project.cardImage && (
-            <img
-              src={project.cardImage}
               alt={`${project.title} preview`}
               className="absolute inset-0 h-full w-full object-cover opacity-90"
               loading="lazy"
