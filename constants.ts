@@ -59,7 +59,7 @@ export const PROJECTS: Project[] = [
     timeline: '4 Weeks',
     
     oneLiner: 'High-performance arithmetic training for precision and speed.',
-    demoLink: '#',
+    demoLink: 'https://circuit-283986025326.us-west1.run.app/',
     trustNote: 'IndexedDB telemetry storage.',
     
     fullProblem: 'Learning mental math often feels static. CIRCUIT transforms calculation into a high-stakes, reactive telemetry experience.',
