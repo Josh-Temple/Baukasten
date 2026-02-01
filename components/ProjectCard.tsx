@@ -22,6 +22,9 @@ export const ProjectCard: React.FC<ProjectCardProps & { onClick: () => void }> =
           {cardImage && (
             <img
               src={cardImage}
+          {project.cardImage && (
+            <img
+              src={project.cardImage}
               alt={`${project.title} preview`}
               className="absolute inset-0 h-full w-full object-cover opacity-90"
               loading="lazy"

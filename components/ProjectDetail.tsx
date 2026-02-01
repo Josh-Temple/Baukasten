@@ -88,6 +88,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                              {slide.src ? (
                                 <img
                                   src={`${assetBase}${slide.src.replace(/^\//, '')}`}
+                                  src={slide.src}
                                   alt={slide.caption}
                                   className="h-full w-full object-cover"
                                   loading="lazy"
