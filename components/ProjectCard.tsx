@@ -6,6 +6,10 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard: React.FC<ProjectCardProps & { onClick: () => void }> = ({ project, onClick }) => {
+  const cardImage = project.cardImage
+    ? `${import.meta.env.BASE_URL}${project.cardImage.replace(/^\//, '')}`
+    : null;
+
   return (
     <section className="grid grid-cols-12 gap-8 items-center w-full max-w-md mx-auto px-6 group/item">
       {/* Visual Block Side (Phone Aspect Ratio) */}
@@ -15,6 +19,9 @@ export const ProjectCard: React.FC<ProjectCardProps & { onClick: () => void }> =
           className="group/btn w-full aspect-[3/5] rounded-[2rem] relative flex flex-col items-center justify-center text-white overflow-hidden transition-transform duration-700 hover:scale-[1.03] active:scale-95"
           style={{ backgroundColor: project.themeColor }}
         >
+          {cardImage && (
+            <img
+              src={cardImage}
           {project.cardImage && (
             <img
               src={project.cardImage}

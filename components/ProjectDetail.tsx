@@ -15,6 +15,8 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
     { caption: 'Interface Logic' }
   ];
 
+  const assetBase = import.meta.env.BASE_URL;
+
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const { scrollLeft, scrollWidth, clientWidth } = e.currentTarget;
     if (scrollWidth <= clientWidth) return;
@@ -85,6 +87,7 @@ export const ProjectDetail: React.FC<ProjectDetailProps> = ({ project, onBack })
                         <div className="bg-white rounded-[3.5rem] border-[8px] border-white overflow-hidden aspect-[9/19] flex items-center justify-center shadow-float group/slide relative">
                              {slide.src ? (
                                 <img
+                                  src={`${assetBase}${slide.src.replace(/^\//, '')}`}
                                   src={slide.src}
                                   alt={slide.caption}
                                   className="h-full w-full object-cover"
