@@ -7,19 +7,19 @@ export const PROJECTS: Project[] = [
     problem: 'Manual palette creation is slow.',
     approach: 'AI-driven role generation.',
     status: 'v1.2 Live',
-    updatedAt: 'Updated Oct 2024',
+    updatedAt: 'Updated Jan 2026',
     themeColor: '#2D3436', // 深い木炭色
     iconName: 'grid_view',
     label: 'Engine',
     variant: 'blue',
     category: 'Tool',
-    year: '2024',
+    year: '2026',
     role: 'Solo Dev',
     tools: 'React, AI',
     timeline: '2 Weeks',
     
     oneLiner: 'Role-based UI palette synthesizer. Turning abstract text into functional tokens.',
-    demoLink: '#',
+    demoLink: 'https://irogenix-283986025326.us-west1.run.app/',
     trustNote: 'Client-side processing. No data leaks.',
     
     fullProblem: 'Designing semantic color systems is usually a manual, error-prone process. Irogenix treats UI color as a logic problem, not just an aesthetic one.',
@@ -34,11 +34,13 @@ export const PROJECTS: Project[] = [
     
     techStack: ['React 19', 'Vite', 'Gemini API', 'Tailwind CSS'],
     repoLink: '#',
+
+    cardImage: '/screenshots/irogenix/01_start.png',
     
     screenshots: [
-      { caption: 'Palette Synthesizer' },
-      { caption: 'Contrast Validation' },
-      { caption: 'Code Export' }
+      { caption: 'Palette Synthesizer', src: '/screenshots/irogenix/02_input.png' },
+      { caption: 'Contrast Validation', src: '/screenshots/irogenix/03_result.png' },
+      { caption: 'Code Export', src: '/screenshots/irogenix/04_detail.png' }
     ]
   },
   {
@@ -53,7 +55,7 @@ export const PROJECTS: Project[] = [
     label: 'Racer',
     variant: 'red',
     category: 'App',
-    year: '2024',
+    year: '2026',
     role: 'Lead Developer',
     tools: 'React, Dexie.js',
     timeline: '4 Weeks',
@@ -94,7 +96,7 @@ export const PROJECTS: Project[] = [
     label: 'Motion',
     variant: 'yellow',
     category: 'Tool',
-    year: '2024',
+    year: '2026',
     role: 'Lead Developer',
     tools: 'React 19, Tailwind',
     timeline: 'Ongoing',
