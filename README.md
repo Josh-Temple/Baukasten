@@ -4,63 +4,63 @@
 
 # Baukasten
 
-React + Vite で構築した、プロジェクトギャラリーサイトです。  
-カード一覧・カテゴリフィルタ・詳細ビューを備え、`constants.ts` のデータを編集するだけで掲載内容を更新できます。
+A project gallery site built with React + Vite.  
+It includes a card list, category filters, and a detail view, and you can update the showcased content by editing only the data in `constants.ts`.
 
-## 主な機能
+## Key Features
 
-- プロジェクトカードの一覧表示
-- カテゴリ別フィルタ（All / Tool / App など）
-- プロジェクト詳細画面（概要、課題、アプローチ、スクリーンショット）
-- 情報ページ（Info View）
-- GitHub Pages へのデプロイ対応
+- Project card gallery
+- Category filtering (All / Tool / App, etc.)
+- Project detail pages (overview, challenges, approach, screenshots)
+- Information page (Info View)
+- GitHub Pages deployment support
 
-## 技術スタック
+## Tech Stack
 
 - React 19
 - TypeScript
 - Vite
-- Tailwind CSS（ユーティリティクラスベース）
+- Tailwind CSS (utility-class based)
 
-## セットアップ（ローカル実行）
+## Setup (Local Development)
 
 **Prerequisites:** Node.js
 
-1. 依存関係をインストール
+1. Install dependencies
 
    ```bash
    npm install
    ```
 
-2. 開発サーバーを起動
+2. Start the development server
 
    ```bash
    npm run dev
    ```
 
-3. ブラウザで表示（通常）
+3. Open in your browser
 
    ```
    http://localhost:5173
    ```
 
-## 利用可能なスクリプト
+## Available Scripts
 
 ```bash
-npm run dev      # 開発サーバー起動
-npm run build    # 本番ビルド
-npm run preview  # ビルド結果のローカル確認
+npm run dev      # Start development server
+npm run build    # Build for production
+npm run preview  # Preview production build locally
 ```
 
-## コンテンツ更新方法
+## How to Update Content
 
-掲載プロジェクトは `constants.ts` の `PROJECTS` 配列で管理されています。
+Projects are managed in the `PROJECTS` array inside `constants.ts`.
 
-- 新規プロジェクト追加: `PROJECTS` にオブジェクトを追加
-- カテゴリ追加: `category` に新しい値を設定（ナビゲーションに自動反映）
-- カード画像・スクリーンショット: `public/screenshots/...` に配置して `cardImage` / `screenshots` で参照
+- Add a new project: append a new object to `PROJECTS`
+- Add a new category: set a new `category` value (navigation updates automatically)
+- Add card images/screenshots: place assets under `public/screenshots/...` and reference them via `cardImage` / `screenshots`
 
-## ディレクトリ構成（主要部分）
+## Directory Structure (Main Parts)
 
 ```text
 .
@@ -73,19 +73,24 @@ npm run preview  # ビルド結果のローカル確認
 └─ README.md
 ```
 
-## GitHub Pages デプロイ
+## GitHub Pages Deployment
 
-1. サイトをビルド
+1. Build the site
 
    ```bash
    npm run build
    ```
 
-2. GitHub で **Settings → Pages** を開く
-3. **Build and deployment** で **GitHub Actions** を選択
-4. `main` への push で `dist/` を公開
+2. Open **Settings → Pages** in GitHub
+3. Select **GitHub Actions** under **Build and deployment**
+4. Push to `main` to publish `dist/`
 
-## 補足
+## Notes
 
-- 現在の実装は、必須の API キー設定なしで起動できます。
-- `constants.ts` 内には各プロジェクト説明として外部サービス名が含まれる箇所がありますが、README 自体は特定プラットフォーム前提の説明にはしていません。
+- The current implementation runs without any required API key configuration.
+- `constants.ts` may include names of external services in project descriptions, but this README remains platform-agnostic.
+
+## UI / Design Guide
+
+- UI/design rules, direction, and color palette are centralized in `UI_GUIDELINES.md`.
+- Check that document before adding new UI or modifying existing UI.
