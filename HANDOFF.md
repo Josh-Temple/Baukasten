@@ -2,26 +2,27 @@
 
 ## Session Summary
 
-- Converted documentation content to English in `README.md` and `UI_GUIDELINES.md`.
-- Preserved the project structure and guidance while improving readability for English-speaking contributors.
-- Added this `HANDOFF.md` file as requested.
+- Added a reusable prompt document for building a custom GPT that converts app descriptions into Baukasten `PROJECTS` entries.
+- Linked the new prompt document from `README.md` for easier discovery.
+- Kept implementation code unchanged (documentation-only update).
 
 ## Current Repository State
 
-- Code behavior is unchanged (documentation-only updates).
-- Main docs now point contributors to `UI_GUIDELINES.md` for design decisions and UI consistency.
+- New documentation file: `docs/GPTS_BAUKASTEN_INPUT_PROMPT.md`.
+- `README.md` now includes a section that points to the GPT prompt template.
 
 ## What Was Verified
 
-- Production build succeeds after doc updates.
+- Repository diff reviewed for doc-only changes.
+- Markdown files checked for readability and copy-paste usability of the prompt.
 
 ## Suggested Next Steps
 
-1. If desired, align any remaining Japanese text in in-app UI copy to English for full language consistency.
-2. Consider adding a short "Contributing" section in `README.md` that references `UI_GUIDELINES.md` and `HANDOFF.md`.
-3. If the team needs stricter consistency, move key colors/spacing into centralized design tokens.
+1. Paste the prompt into a custom GPT's Instructions field.
+2. Test with 2-3 sample app briefs and confirm output can be copied directly into `constants.ts`.
+3. If needed, tune defaults (e.g., `category`, `trustNote`, screenshot naming convention).
 
 ## Notes for the Next Session
 
-- If UI conventions change, update `UI_GUIDELINES.md` first, then reflect those changes in components.
-- Keep `README.md` and `HANDOFF.md` updated whenever project workflow or conventions are changed.
+- If `Project` type fields change in `types.ts`, update `docs/GPTS_BAUKASTEN_INPUT_PROMPT.md` accordingly.
+- Keep `README.md` and `HANDOFF.md` in sync whenever onboarding/documentation workflow changes.
