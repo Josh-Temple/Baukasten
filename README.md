@@ -94,3 +94,7 @@ Projects are managed in the `PROJECTS` array inside `constants.ts`.
 
 - UI/design rules, direction, and color palette are centralized in `UI_GUIDELINES.md`.
 - Check that document before adding new UI or modifying existing UI.
+
+## GPTs Prompt Template
+
+- A ready-to-use prompt for creating a custom GPT that generates `PROJECTS` entries is available at `docs/GPTS_BAUKASTEN_INPUT_PROMPT.md`.
