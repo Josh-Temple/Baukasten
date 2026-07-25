@@ -1,39 +1,27 @@
+export type PortfolioGroup =
+  | 'daily-use'
+  | 'validation'
+  | 'learning-systems'
+  | 'infrastructure';
+
 export interface Project {
   id: string;
   title: string;
-  problem: string;
-  approach: string;
-  status: string;
-  
-  // Visual properties
-  themeColor: string; // Hex code or tailwind class
-  iconName: string;   // Material Icon name
-  label: string;      // Short label inside the card (e.g. "PALETTE")
-  
-  // For specific decoration rendering logic
-  variant: 'blue' | 'yellow' | 'red';
-
-  // Detail View properties
-  category?: string;
-  year?: string;
-  role?: string;
-  tools?: string;
-  timeline?: string;
-  
-  // New App Detail Fields
-  oneLiner?: string;
-  updatedAt?: string;
-  demoLink?: string;
-  trustNote?: string;
-  
-  fullProblem?: string;
-  fullApproach?: string; // Mapped to Mechanism
-  fullOutcome?: string;  // Mapped to Proof
-  
+  group: PortfolioGroup;
+  status: 'Daily use' | 'In validation' | 'Stable' | 'Consolidating' | 'Infrastructure';
+  oneLiner: string;
+  audience: string;
+  fullProblem: string;
+  fullApproach: string;
   howItWorks?: { title: string; desc: string }[];
   techStack?: string[];
+  trustNote?: string;
+  demoLink?: string;
   repoLink?: string;
-  
+  primaryActionLabel?: string;
+  themeColor: string;
+  iconName: string;
+  variant: 'blue' | 'yellow' | 'red';
   cardImage?: string;
-  screenshots?: { caption: string; src?: string }[];
+  screenshots?: { caption: string; src: string }[];
 }
