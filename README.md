@@ -1,100 +1,53 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
-
 # Baukasten
 
-A project gallery site built with React + Vite.  
-It includes a card list, category filters, and a detail view, and you can update the showcased content by editing only the data in `constants.ts`.
+**Small learning and thinking tools, built through repeated personal use and real-world validation.**
 
-## Key Features
+Baukasten is a deliberately selected portfolio, not a technical-demo archive or an automatic list of repositories. Each project addresses a recurring problem, supports a clear task, has evidence of use, and states its current status honestly.
 
-- Project card gallery
-- Category filtering (All / Tool / App, etc.)
-- Project detail pages (overview, challenges, approach, screenshots)
-- Information page (Info View)
-- GitHub Pages deployment support
+## Portfolio structure
 
-## Tech Stack
+Projects appear in four groups:
 
-- React 19
-- TypeScript
-- Vite
-- Tailwind CSS (utility-class based)
+1. **Tools I use regularly** — tools shaped by recurring problems in personal learning practice.
+2. **Currently validating** — products tested with real users before major features are added.
+3. **Learning systems** — larger environments for understanding relationships, causes, and ideas.
+4. **Knowledge infrastructure** — systems that turn research into connected, reusable knowledge.
 
-## Setup (Local Development)
+The current selection is CIRCUIT, Engrave, Majoris, Parla, World History Lab, Noema, and Lumen / Commonplace.
 
-**Prerequisites:** Node.js
+## Content management
 
-1. Install dependencies
+`constants.ts` remains the single source of truth. The `PROJECTS` array stores each project's group, status, one-line value, audience, problem, approach, optional workflow and technical details, verified links, and real screenshot paths. `PORTFOLIO_GROUPS` stores group headings and descriptions.
 
-   ```bash
-   npm install
-   ```
+Only links whose repository or current deployment can be verified should be added. An unavailable or unverified app must not receive a placeholder CTA. Content is kept in TypeScript: this site intentionally uses no CMS, database, GitHub API synchronization, or external JSON feed.
 
-2. Start the development server
+## Local development
 
-   ```bash
-   npm run dev
-   ```
-
-3. Open in your browser
-
-   ```
-   http://localhost:5173
-   ```
-
-## Available Scripts
+**Prerequisite:** Node.js 20 or later (matching the deployment workflow).
 
 ```bash
-npm run dev      # Start development server
-npm run build    # Build for production
-npm run preview  # Preview production build locally
+npm install
+npm run dev
 ```
 
-## How to Update Content
+Vite serves the site locally (normally at `http://localhost:3000`). To type-check and create the production bundle:
 
-Projects are managed in the `PROJECTS` array inside `constants.ts`.
-
-- Add a new project: append a new object to `PROJECTS`
-- Add a new category: set a new `category` value (navigation updates automatically)
-- Add card images/screenshots: place assets under `public/screenshots/...` and reference them via `cardImage` / `screenshots`
-
-## Directory Structure (Main Parts)
-
-```text
-.
-├─ App.tsx
-├─ constants.ts
-├─ components/
-├─ public/
-│  └─ screenshots/
-├─ index.tsx
-└─ README.md
+```bash
+npx tsc --noEmit
+npm run build
+npm run preview
 ```
 
-## GitHub Pages Deployment
+## Technology and design
 
-1. Build the site
+- React 19, TypeScript, Vite, and existing utility CSS
+- Mobile-first, bright neutral surfaces, low-saturation accents, generous spacing, and short tactile interactions
+- `UI_GUIDELINES.md` is the design reference and should be reviewed before UI work
 
-   ```bash
-   npm run build
-   ```
+## GitHub Pages deployment
 
-2. Open **Settings → Pages** in GitHub
-3. Select **GitHub Actions** under **Build and deployment**
-4. Push to `main` to publish `dist/`
+The existing GitHub Actions workflow installs with `npm ci`, builds `dist/`, and deploys it to GitHub Pages when `main` is updated. Vite's relative base keeps assets working beneath the repository Pages path.
 
-## Notes
+## Supporting documentation
 
-- The current implementation runs without any required API key configuration.
-- `constants.ts` may include names of external services in project descriptions, but this README remains platform-agnostic.
-
-## UI / Design Guide
-
-- UI/design rules, direction, and color palette are centralized in `UI_GUIDELINES.md`.
-- Check that document before adding new UI or modifying existing UI.
-
-## GPTs Prompt Template
-
-- A ready-to-use prompt for creating a custom GPT that generates `PROJECTS` entries is available at `docs/GPTS_BAUKASTEN_INPUT_PROMPT.md`.
+The custom-GPT content prompt remains in `docs/GPTS_BAUKASTEN_INPUT_PROMPT.md`; its output must still be fact-checked and adapted to the current `Project` type before publication.
