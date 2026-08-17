@@ -27,7 +27,8 @@ export const PROJECTS: Project[] = [
     fullProblem: 'Flashcards are often designed for short facts, not for reproducing an entire passage accurately.',
     fullApproach: 'Engrave divides a text into manageable segments and supports progressive recall, readings, notes, and audio.',
     demoLink: 'https://engrave-theta.vercel.app/', repoLink: 'https://github.com/Josh-Temple/Engrave',
-    themeColor: '#5B7A96', iconName: 'format_quote', variant: 'blue'
+    themeColor: '#5B7A96', iconName: 'format_quote', variant: 'blue', cardImage: '/screenshots/engrave/01_home.png',
+    screenshots: [{ caption: 'Library', src: '/screenshots/engrave/01_home.png' }]
   },
   {
     id: 'majoris', title: 'Majoris', group: 'daily-use', status: 'Daily use',
@@ -36,7 +37,8 @@ export const PROJECTS: Project[] = [
     fullProblem: 'Knowing a Major System peg list is not the same as recalling every peg quickly and automatically.',
     fullApproach: 'Majoris provides minimal, repeated retrieval practice with progress tracking and custom peg-list support.',
     demoLink: 'https://majoris.vercel.app/', repoLink: 'https://github.com/Josh-Temple/Majoris',
-    themeColor: '#DCA258', iconName: 'pin', variant: 'yellow'
+    themeColor: '#DCA258', iconName: 'pin', variant: 'yellow', cardImage: '/screenshots/majoris/01_home.png',
+    screenshots: [{ caption: 'Training home', src: '/screenshots/majoris/01_home.png' }]
   },
   {
     id: 'parla', title: 'Parla', group: 'validation', status: 'In validation',
@@ -45,7 +47,8 @@ export const PROJECTS: Project[] = [
     fullProblem: 'Learners often recognize useful expressions but cannot retrieve them when a conversation slows down or becomes difficult.',
     fullApproach: 'Parla combines focused phrase recall with prompts that help learners move into a real conversation using an external AI tool.',
     demoLink: 'https://parla-teal.vercel.app/', repoLink: 'https://github.com/Josh-Temple/Parla',
-    themeColor: '#BD5B5B', iconName: 'forum', variant: 'red'
+    themeColor: '#BD5B5B', iconName: 'forum', variant: 'red', cardImage: '/screenshots/parla/01_home.png',
+    screenshots: [{ caption: 'Practice home', src: '/screenshots/parla/01_home.png' }]
   },
   {
     id: 'world-history-lab', title: 'World History Lab', group: 'learning-systems', status: 'Consolidating',
@@ -54,7 +57,8 @@ export const PROJECTS: Project[] = [
     fullProblem: 'World-history learning often separates chronology, causality, comparison, sources, and argument into disconnected exercises.',
     fullApproach: 'World History Lab brings multiple learning modes together around shared historical content and review data.',
     demoLink: 'https://world-history-lab.vercel.app/', repoLink: 'https://github.com/Josh-Temple/world-history-lab',
-    themeColor: '#5B7A96', iconName: 'public', variant: 'blue'
+    themeColor: '#5B7A96', iconName: 'public', variant: 'blue', cardImage: '/screenshots/world-history-lab/01_home.png',
+    screenshots: [{ caption: 'Learning dashboard', src: '/screenshots/world-history-lab/01_home.png' }]
   },
   {
     id: 'noema', title: 'Noema', group: 'learning-systems', status: 'Stable',
@@ -63,7 +67,8 @@ export const PROJECTS: Project[] = [
     fullProblem: 'Lists of philosophers and doctrines do not make disagreements, influences, and conceptual differences easy to understand.',
     fullApproach: 'Noema uses comparisons and thematic connections as the main route into philosophical ideas.',
     demoLink: 'https://noema-mu.vercel.app/', repoLink: 'https://github.com/Josh-Temple/Noema',
-    themeColor: '#DCA258', iconName: 'account_tree', variant: 'yellow'
+    themeColor: '#DCA258', iconName: 'account_tree', variant: 'yellow', cardImage: '/screenshots/noema/01_home.png',
+    screenshots: [{ caption: 'Home', src: '/screenshots/noema/01_home.png' }]
   },
   {
     id: 'lumen-commonplace', title: 'Lumen / Commonplace', group: 'infrastructure', status: 'Infrastructure',
@@ -72,6 +77,7 @@ export const PROJECTS: Project[] = [
     fullProblem: 'Research results become difficult to reuse when notes, sources, concepts, and finished explanations remain separated.',
     fullApproach: 'Lumen organizes Markdown-based knowledge into linked concepts, methods, sources, indexes, and reader-facing pages.',
     demoLink: 'https://commonplace-sable.vercel.app/', repoLink: 'https://github.com/Josh-Temple/Commonplace',
-    themeColor: '#5B7A96', iconName: 'hub', variant: 'blue'
+    themeColor: '#5B7A96', iconName: 'hub', variant: 'blue', cardImage: '/screenshots/lumen-commonplace/01_home.png',
+    screenshots: [{ caption: 'Knowledge base home', src: '/screenshots/lumen-commonplace/01_home.png' }]
   }
 ];
