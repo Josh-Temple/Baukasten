@@ -1,6 +1,8 @@
 name: Capture Baukasten screenshots
 
 on:
+  push:
+    branches: [agent/add-app-links-screenshots]
   pull_request:
     branches: [main]
 
