@@ -21,8 +21,8 @@ jobs:
 
       - name: Install Playwright
         run: |
-          mkdir -p .capture
-          cd .capture
+          mkdir -p capture-tmp
+          cd capture-tmp
           npm init -y
           npm install playwright@1.55.0
           npx playwright install --with-deps chromium
@@ -32,7 +32,7 @@ jobs:
           node <<'NODE'
           const fs = require('fs');
           const path = require('path');
-          const { chromium, devices } = require('./.capture/node_modules/playwright');
+          const { chromium, devices } = require('./capture-tmp/node_modules/playwright');
 
           const targets = [
             ['engrave', 'https://engrave-theta.vercel.app/'],
