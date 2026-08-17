@@ -2,15 +2,15 @@ name: Capture Baukasten screenshots
 
 on:
   push:
-    branches: [agent/add-app-links-screenshots]
-  pull_request:
-    branches: [main]
+    branches:
+      - agent/add-app-links-screenshots
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   capture:
+    if: ${{ !contains(github.event.head_commit.message, '[skip screenshot]') }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -51,7 +51,7 @@ jobs:
             });
 
             for (const [id, url] of targets) {
-              const outputDir = path.join('screenshots', id);
+              const outputDir = path.join('public', 'screenshots', id);
               fs.mkdirSync(outputDir, { recursive: true });
               const page = await context.newPage();
               await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
@@ -72,10 +72,33 @@ jobs:
           });
           NODE
 
+      - name: Commit captured screenshots to the branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/screenshots/engrave/01_home.png \
+                  public/screenshots/majoris/01_home.png \
+                  public/screenshots/parla/01_home.png \
+                  public/screenshots/world-history-lab/01_home.png \
+                  public/screenshots/noema/01_home.png \
+                  public/screenshots/lumen-commonplace/01_home.png
+          if git diff --cached --quiet; then
+            echo "No screenshot changes to commit."
+          else
+            git commit -m "[skip screenshot] Add captured app screenshots"
+            git push
+          fi
+
       - name: Upload screenshots
         uses: actions/upload-artifact@v4
         with:
           name: baukasten-screenshots
-          path: screenshots
+          path: |
+            public/screenshots/engrave/01_home.png
+            public/screenshots/majoris/01_home.png
+            public/screenshots/parla/01_home.png
+            public/screenshots/world-history-lab/01_home.png
+            public/screenshots/noema/01_home.png
+            public/screenshots/lumen-commonplace/01_home.png
           if-no-files-found: error
           retention-days: 1
