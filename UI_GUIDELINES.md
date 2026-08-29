@@ -50,9 +50,11 @@ Before adding new components or changing existing UI, review this guide first.
 
 ## 4. Layout / Spacing Rules
 
-- Content width baseline: `max-w-md` (mobile-first baseline)
-- Horizontal padding: `px-6`
-- Section spacing: `space-y-12` or more
+- Mobile remains the baseline: content should work cleanly in a single column with `px-6` spacing.
+- Do not keep the entire site constrained to phone width on desktop. Wide gallery surfaces may expand to roughly `max-w-6xl` and use a two-column project grid when card readability is preserved.
+- Reading-heavy content should remain narrower than gallery content. Prefer roughly `max-w-2xl` to `max-w-4xl` depending on whether the surface contains prose, screenshots, or supporting panels.
+- On project detail pages, prose should stay narrow enough for comfortable line length while screenshots and step panels may use the wider content area.
+- Section spacing: `space-y-12` or more; wide layouts may increase vertical rhythm rather than filling every available horizontal gap.
 - Cards:
   - Use `rounded-2xl` or larger
   - Use `border border-slate-200` + optional `shadow-sm` / `shadow-toy`

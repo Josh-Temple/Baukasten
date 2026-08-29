@@ -1,9 +1,9 @@
 import React from 'react';
 
 export const Header: React.FC<{ onInfoClick: () => void }> = ({ onInfoClick }) => (
-  <header className="mb-12 w-full max-w-md mx-auto px-6 pt-14 flex justify-between items-start">
+  <header className="mb-12 w-full max-w-6xl mx-auto px-6 lg:px-8 pt-14 lg:pt-16 flex justify-between items-start">
     <div className="min-w-0 pr-4">
-      <h1 className="text-4xl font-[900] tracking-[-0.05em] text-[#1A1A1A] leading-none mb-3">BAUKASTEN</h1>
+      <h1 className="text-4xl lg:text-5xl font-[900] tracking-[-0.05em] text-[#1A1A1A] leading-none mb-3">BAUKASTEN</h1>
       <div className="flex gap-1" aria-hidden="true"><div className="h-1.5 w-6 bg-[#BD5B5B]"/><div className="h-1.5 w-1.5 bg-[#5B7A96]"/><div className="h-1.5 w-1.5 bg-[#DCA258]"/></div>
       <p className="mt-4 text-[0.65rem] font-black uppercase tracking-[0.2em] text-slate-500">Learning tools built through use.</p>
     </div>
