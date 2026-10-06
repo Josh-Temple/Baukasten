@@ -1,6 +1,6 @@
 # Web Design Principles
 
-These principles are intended for websites and small web apps where clarity, readability, and ease of use matter more than visual novelty.
+These principles are intended for websites and small web apps where clarity, readability, and ease of use matter more than visual novelty. See `RESEARCH_FINDINGS.md` for evidence strength, source scope, and limits.
 
 ## 1. Start from the user's task
 
@@ -10,6 +10,7 @@ A page should be designed around what the user needs to understand or do.
 - Prefer concrete descriptions of what the site enables over abstract slogans.
 - Do not make secondary features compete visually with the main task.
 - If a page has several important tasks, make their relationship explicit instead of presenting equal-weight actions everywhere.
+- Treat an unresearched need as a hypothesis, not an established requirement.
 
 A useful test is: **Can a first-time visitor explain what this page is for and what they can do next without reading every paragraph?**
 
@@ -17,11 +18,12 @@ A useful test is: **Can a first-time visitor explain what this page is for and w
 
 Establish the reading and interaction order with structure first.
 
-- Use heading levels, position, spacing, and typography to express hierarchy.
+- Use descriptive headings, heading levels, position, spacing, and typography to express hierarchy.
 - The most important item should not depend only on color, shadow, or animation.
 - Keep related information visually close.
 - Separate unrelated sections with enough space that scanning remains easy.
 - Do not wrap every block in a card merely to create structure.
+- Keep repeated navigation and same-purpose controls consistent unless there is a user-driven reason to change them.
 
 If the hierarchy stops working when color and decoration are mentally removed, the underlying structure is probably too weak.
 
@@ -29,7 +31,7 @@ If the hierarchy stops working when color and decoration are mentally removed, t
 
 People often scan a page before reading it closely.
 
-- Use headings that communicate the content of the section.
+- Use headings that let users predict the content of each section.
 - Keep paragraphs focused on one main point.
 - Put conditions and important caveats near the statement they qualify.
 - Prefer concrete nouns and verbs to promotional abstractions.
@@ -55,9 +57,10 @@ A narrow screen is not just a smaller desktop.
 
 - Make the main task work in a single-column mobile layout first when practical.
 - Let content reflow instead of depending on fixed widths.
+- For WCAG 2.2 AA review, verify vertically scrolling content at a width equivalent to 320 CSS pixels unless a two-dimensional layout is essential.
 - Avoid disconnecting the visual order from the DOM/source order.
 - Preserve user zoom and text resizing.
-- Keep touch targets separated enough to reduce accidental activation.
+- Keep pointer targets at least 24 by 24 CSS pixels or satisfy the WCAG 2.2 spacing/equivalent-control exceptions. A 44 by 44 CSS pixel target is stronger AAA guidance, not the AA minimum.
 - Test long Japanese text, long English text, narrow screens, and enlarged text rather than only ideal sample content.
 
 Responsive behavior should follow the content and task, not a list of device models.
@@ -69,14 +72,27 @@ Accessibility is part of the structure, not a later visual adjustment.
 - Prefer native elements such as `button`, `a`, `input`, `select`, and semantic landmarks over custom `div` controls.
 - Ensure keyboard users can reach and operate the main functions.
 - Keep focus order logical and make focus visible.
+- Ensure sticky headers, footers, overlays, and similar author-created layers do not completely hide the focused component.
 - Do not communicate status or meaning only with color.
 - Maintain sufficient contrast for text and important controls.
 - Keep headings and landmarks meaningful for non-visual navigation.
+- Ensure content remains usable when users override text spacing; WCAG's text-spacing values are robustness tests, not required default typography values.
 - Treat WCAG 2.2 as the baseline standards reference for accessibility review.
 
 Custom controls carry an accessibility cost. Use them only when native controls cannot express the required behavior.
 
-## 7. Use motion to explain or confirm, not to decorate continuously
+## 7. Treat typography as a usability variable, not a fixed recipe
+
+Typography affects reading, but evidence does not justify one universal font family, line height, or line length for every site.
+
+- Avoid unusually small body text.
+- Allow zoom and text enlargement without clipping or overlap.
+- Use meaningful headings and enough visual differentiation to make structure easy to find.
+- Do not claim that serif or sans-serif is universally more readable.
+- Do not turn a study-specific font size into a cross-device rule.
+- For reading-heavy pages, keep lines comfortably bounded and test real Japanese and English content. WCAG's 80-glyph / 40-CJK line-width provision is AAA guidance, not an AA requirement or a universal optimum.
+
+## 8. Use motion to explain or confirm, not to decorate continuously
 
 Motion should support comprehension or interaction feedback.
 
@@ -88,7 +104,7 @@ Motion should support comprehension or interaction feedback.
 
 The absence of motion is preferable to motion that weakens reading or control.
 
-## 8. Treat reading and read-aloud compatibility as testable behavior
+## 9. Treat reading and read-aloud compatibility as testable behavior
 
 Document-like pages may be consumed through browser reading or read-aloud features.
 
@@ -96,11 +112,11 @@ Document-like pages may be consumed through browser reading or read-aloud featur
 - Keep the article or primary text in ordinary document flow where possible.
 - Avoid making essential text depend on canvas rendering or purely visual layout.
 - Test the actual deployed page in the target browser when reading or read-aloud support matters.
-- Do not infer compatibility from visual similarity or hosting provider alone.
+- Do not infer compatibility from visual similarity, hosting provider, Search Console registration, or indexing assumptions alone.
 
-Browser reading features are partly browser-controlled and may not be available on every page even when the page appears readable.
+Browser reading features use their own content/readability decisions and may not be available on every page even when the page appears readable.
 
-## 9. Prefer progressive enhancement and graceful failure
+## 10. Prefer progressive enhancement and graceful failure
 
 The core purpose of a page should survive partial failure where practical.
 
@@ -109,16 +125,27 @@ The core purpose of a page should survive partial failure where practical.
 - Avoid unnecessary client-side complexity for static or document-like content.
 - Treat network, loading, empty, and error states as part of the experience.
 
-## 10. Verify the rendered result
+## 11. Treat performance as part of the user experience
+
+For sites with sufficient real-user data, current Core Web Vitals provide useful signals for loading, responsiveness, and visual stability.
+
+- LCP: aim for 2.5 seconds or less.
+- INP: aim for 200 milliseconds or less.
+- CLS: aim for 0.1 or less.
+- Evaluate at the 75th percentile, separated for mobile and desktop when field data is available.
+- Use lab measurements for diagnosis, but do not treat one Lighthouse run as proof of real-user performance.
+- Do not use performance scores as a substitute for usability or accessibility testing.
+
+## 12. Verify the rendered result
 
 Source code can confirm structure, but not the whole user experience.
 
 Review the actual page in a browser and, when relevant:
 
-- mobile width
+- mobile width, including 320 CSS px reflow
 - desktop width
 - keyboard-only navigation
-- increased text size / zoom
+- increased text size / zoom and text-spacing overrides
 - long content
 - empty and error states
 - reduced motion
