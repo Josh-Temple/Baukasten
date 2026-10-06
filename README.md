@@ -42,7 +42,8 @@ npm run preview
 
 - React 19, TypeScript, Vite, and existing utility CSS
 - Mobile-first, bright neutral surfaces, low-saturation accents, generous spacing, and short tactile interactions
-- `UI_GUIDELINES.md` is the design reference and should be reviewed before UI work
+- `UI_GUIDELINES.md` is the Baukasten-specific design reference and should be reviewed before UI work
+- `docs/web-design/README.md` is the reusable cross-site reference for clarity, content structure, accessibility, responsive behavior, and browser-reading observations
 
 ## GitHub Pages deployment
 
