@@ -3,6 +3,8 @@
 This file centralizes Baukasten's UI and design rules in one place.  
 Before adding new components or changing existing UI, review this guide first.
 
+**Scope:** This file defines Baukasten's own visual system. Reusable cross-site principles belong in `docs/web-design/` and should not be copied into this file unless they directly affect Baukasten's implementation.
+
 ## 1. Design Direction
 
 - **Keywords**: `Engineered Play & Logic` / `Toy-like precision` / `Minimal archive`
