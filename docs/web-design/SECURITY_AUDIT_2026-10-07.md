@@ -464,3 +464,26 @@ Pages artifactはBaukasten dist、STR web、Can AI site、公共AI調達の選�
 - F-05: [Wenku PR #12](https://github.com/Josh-Temple/Wenku/pull/12)。memory-only tokenとlegacy削除。HEAD `5400721689e6181c4e1951eded5cc0eadf282b7e`、構文/回帰tests PASS。PRはopenで未merge、本番未変更。
 
 監査正本とWenku修正PRはGitHubでmergeable/cleanを確認。merge/deployは実行していない。個別issueは修正作業の要点とこの正本へのリンクだけで、横断レポートを重複配置していない。
+
+## 継続修正 — 2026-10-07 09:50 UTC
+
+### F-02 Lilt: 検証済み修正PR
+
+- [Lilt PR #24](https://github.com/Josh-Temple/Lilt/pull/24)、source baseline `81ab692de04ac59a9622d1ad56fbd6ffaa270947`、修正HEAD `39a44b6b0199da36a68880928d90f679347a2d40`。
+- package.jsonとlockのNext/eslint-config-nextを15.5.27へ固定。React19.0.0は維持。lockのsharpは0.35.5、source-map-jsは1.2.2。Node最低版を依存条件に合わせ>=20.9.0に明示。
+- 更新後buildでLibraryのuseSearchParamsにSuspense境界がないprerenderエラーを確認。既存の検索/フィルタ/診断処理を保持して境界だけ追加しbuild成功。
+- 検証: clean `npm ci --ignore-scripts`、typecheck、lint、production build PASS。loopback-only smokeで主要8ページ（query付きLibrary、pack/phrase等）、queryのprerender境界、env欠落時のpacks API明示的500を確認。Supabase credentials/envを入れず、認証・upload・ユーザーデータを操作していない。
+- 公式npm audit再照合ではNextの直接advisory、sharp、source-map-jsの警告は解消。Nextの表示上の警告はPostCSSのtransitive chain。残りpackage警告 Critical0 / High11 / Moderate3 / Low2、計16であり、「全依存に脆弱性なし」とはしない。
+- GitHub保存済みlockを修正HEADで再取得し、検証したlocal lockと全文一致・上記version一致を確認。
+- PR branchへのcommitにより既存Vercel Git integrationの**preview buildが自動起動**した。手動deploy/promotion、default branchへのcommit、PR merge、本番書込は実行していない。F-02の本番修正完了には、review/merge後の成功production deploymentのSHA/version確認が必要。
+- 実Supabase認証、private audio、進捗同期は未検証。リリース前に認可されたテスト環境で回帰確認が必要。`next lint`のdeprecation noticeは現在動作し、Next16への移行は本PRの範囲外。
+
+### 自動修正しない事項の具体化
+
+Plexusの現在default SHAは監査時と同じ。clientはSupabase email OTPでログインするが、GitHub操作にはaccess tokenを送らず、サーバーは利用者とrepoの対応を持たない。単に「ログインできた全員」にApp権限を与える修正ではF-01を解消できない。未確定なのは**どの検証済みSupabase user IDに、どのowner/repo・branch・path・read/writeを許すか**。安全な実装順序は、許可対応の確定→server token検証→user/repo/path/action認可→repo-scoped installation token→API呼出。未設定はfail-closed、未認証/未許可時にGitHub network/token発行ゼロをmockで検証する。実利用者を推測して認可設定を追加したり、既存機能を停止する変更は行っていない。
+
+Engraveは匿名uploadを維持するか認証を必須とするかと、既存音声objectの移行が未確定。接続先対応も値を復号せず推測の域が残るため、bucket policy変更やclient mode変更は行っていない。issue #45で制限/ownership/費用境界を定義してから隔離環境で検証する。
+
+Commonplace/NoemaはNext14からsupported lineへのmajor migrationになるため、Liltの15系minor更新と同じ互換性条件として扱わず、既存のF-04修正案を維持する。今回新たに自動修正したのはLilt PR branchのみ。Wenku PR #12もopen/未mergeのまま。本番の残存Finding件数は変更しない。
+
+- Preview buildの追加確認: Vercel deployment `dpl_9C37q9NjFFZvW8dejns1A9iJAUTT` は **READY**、git SHAは修正HEAD `39a44b6b0199da36a68880928d90f679347a2d40`、target=null（preview）。build logのCompiled successfully / Build Completedを確認。本番へのpromotionはしていない。protected previewの認証回避や秘密を使ったアクセスも実行していない。
