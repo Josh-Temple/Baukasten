@@ -454,3 +454,13 @@ Pages artifactはBaukasten dist、STR web、Can AI site、公共AI調達の選�
 | can-ai-do-this | [393b2c3ac9d3b90613d8dd4b9568f04b6e601356](https://github.com/Josh-Temple/can-ai-do-this/commit/393b2c3ac9d3b90613d8dd4b9568f04b6e601356) | 5 | SHA指定fresh read |
 | instant-radio | [0452560415b239d18cb5c743a4e68b94a4307c20](https://github.com/Josh-Temple/instant-radio/commit/0452560415b239d18cb5c743a4e68b94a4307c20) | 0 | SHA指定fresh read |
 
+
+## GitHub上の対応管理
+
+- 横断監査正本・review: [Baukasten PR #26](https://github.com/Josh-Temple/Baukasten/pull/26)。公開サイトの挙動を変えない文書PR。
+- F-01: [Plexus issue #38](https://github.com/Josh-Temple/Plexus/issues/38)。server認証/認可とApp権限の設計・検証。
+- F-02: [Lilt issue #23](https://github.com/Josh-Temple/Lilt/issues/23)。Next/lockの整合、build回帰、成功production source確認。
+- F-03: [Engrave issue #45](https://github.com/Josh-Temple/Engrave/issues/45)。匿名upload要否、server制限と移行判断。
+- F-05: [Wenku PR #12](https://github.com/Josh-Temple/Wenku/pull/12)。memory-only tokenとlegacy削除。HEAD `5400721689e6181c4e1951eded5cc0eadf282b7e`、構文/回帰tests PASS。PRはopenで未merge、本番未変更。
+
+監査正本とWenku修正PRはGitHubでmergeable/cleanを確認。merge/deployは実行していない。個別issueは修正作業の要点とこの正本へのリンクだけで、横断レポートを重複配置していない。
