@@ -40,6 +40,7 @@ Do not promote a local observation or hypothesis into a general rule without add
 
 - `PRINCIPLES.md` — reusable design and content principles.
 - `RESEARCH_FINDINGS.md` — evidence, limits, and implementation implications behind the principles.
+- [SECURITY_AUDIT_2026-10-07.md](SECURITY_AUDIT_2026-10-07.md) — non-invasive cross-site security audit; immutable source/deployment evidence, verified limits and remediation.
 - `CROSS_SITE_AUDIT_2026-10-07.md` — comparative audit of representative current sites and recurring issues.
 - `CHECKLIST.md` — practical review checklist for implemented sites.
 - `BROWSER_READING_OBSERVATIONS.md` — Chrome reading/read-aloud observations and open hypotheses.
