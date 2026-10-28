@@ -29,6 +29,8 @@ Project cards and the About page use shareable fragment URLs such as `#/projects
 
 **Prerequisite:** Node.js 20 or later (matching the deployment workflow).
 
+Tailwind CSS v3 is compiled with PostCSS during the Vite build. Edit utilities in components and shared visual tokens in `tailwind.config.cjs`; the production site does not load Tailwind from a runtime CDN. Google Fonts and Material Icons remain network-hosted assets and are not included in this dependency change.
+
 ```bash
 npm install
 npm run dev
