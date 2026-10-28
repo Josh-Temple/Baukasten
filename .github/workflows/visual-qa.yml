@@ -4,6 +4,8 @@ on:
   pull_request:
     paths:
       - 'App.tsx'
+      - 'constants.ts'
+      - 'types.ts'
       - 'index.html'
       - 'index.tsx'
       - 'styles.css'

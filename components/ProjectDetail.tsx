@@ -1,4 +1,5 @@
 import React from 'react';
+import { ArrowUpRight, ChevronLeft } from 'lucide-react';
 import { Project } from '../types';
 import { HOME_HASH } from '../navigation.js';
 
@@ -17,7 +18,7 @@ export const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
           aria-label="Back to projects"
           className="w-11 h-11 rounded-xl flex items-center justify-center text-slate-700 bg-white border border-slate-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         >
-          <span className="material-icons" aria-hidden="true">chevron_left</span>
+          <ChevronLeft className="w-6 h-6" aria-hidden="true" />
         </a>
         <span className="text-sm font-bold tracking-tight text-slate-800 text-center px-3 break-words">{project.title}</span>
         <div className="w-11 shrink-0" aria-hidden="true" />
@@ -35,13 +36,17 @@ export const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
               className="mt-8 mx-auto w-full max-w-xs min-h-12 bg-[#1A1A1A] text-white font-bold px-6 py-4 rounded-xl hover:bg-slate-800 transition-colors flex items-center justify-center gap-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
             >
               <span className="tracking-wide text-sm">{primaryLabel}</span>
-              <span className="material-icons text-lg" aria-hidden="true">arrow_outward</span>
+              <ArrowUpRight className="w-[18px] h-[18px] shrink-0" aria-hidden="true" />
             </a>
           )}
           {project.trustNote && <p className="mt-4 text-sm text-slate-600">{project.trustNote}</p>}
         </header>
 
         <article className="space-y-12 sm:space-y-14 border-t border-slate-300 pt-12 sm:pt-14">
+          <section className="max-w-2xl mx-auto">
+            <h2 className="text-xl font-black tracking-tight text-slate-900 mb-3">Try this first</h2>
+            <p className="text-base sm:text-lg text-slate-700 leading-relaxed">{project.firstTask}</p>
+          </section>
           {[
             ['Who it is for', project.audience],
             ['The problem', project.fullProblem],
@@ -101,7 +106,7 @@ export const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
 
           {(project.techStack?.length || project.repoLink) && (
             <section className="max-w-2xl mx-auto border-t border-slate-300 pt-8">
-              <h2 className="text-sm font-black text-slate-900 mb-4">Technical details</h2>
+              <h2 className="text-sm font-black text-slate-900 mb-4">Source and technical details</h2>
               {project.techStack?.length ? (
                 <ul className="flex flex-wrap gap-x-4 gap-y-2">
                   {project.techStack.map(tech => <li key={tech} className="text-sm text-slate-700">{tech}</li>)}

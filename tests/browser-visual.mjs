@@ -12,10 +12,28 @@ const viewports = [320, 360, 390, 768, 1024, 1280];
 const routes = [
   { hash: '', name: 'home', heading: 'BAUKASTEN' },
   { hash: '#/projects/circuit', name: 'circuit', heading: 'CIRCUIT' },
+  { hash: '#/projects/engrave', name: 'engrave', heading: 'Engrave' },
+  { hash: '#/projects/lumen-commonplace', name: 'lumen', heading: 'Lumen' },
   { hash: '#/about', name: 'about', heading: 'Why Baukasten exists' },
 ];
 
 await mkdir(captureDir, { recursive: true });
+
+async function verifyImages(page) {
+  const brokenImages = await page.locator('main img').evaluateAll(async elements => {
+    const results = await Promise.all(elements.map(async image => {
+      image.loading = 'eager';
+      try {
+        await image.decode();
+        return null;
+      } catch {
+        return image.getAttribute('src');
+      }
+    }));
+    return results.filter(Boolean);
+  });
+  assert.deepEqual(brokenImages, [], 'published screenshots must load');
+}
 
 const server = spawn(process.execPath, [
   'node_modules/vite/bin/vite.js',
@@ -57,11 +75,28 @@ try {
       deviceScaleFactor: 1,
       reducedMotion: 'reduce',
     });
+    // Controls must remain legible when external typography resources fail.
+    await page.route(/https:\/\/fonts\.(googleapis|gstatic)\.com\//, route => route.abort());
 
     for (const route of routes) {
       await page.goto(base + route.hash, { waitUntil: 'domcontentloaded' });
       await page.getByRole('heading', { name: route.heading, exact: true }).waitFor();
       await page.evaluate(() => document.fonts.ready);
+      await verifyImages(page);
+
+      if (route.name === 'home') {
+        const overlap = await page.evaluate(() => {
+          const title = document.querySelector('h1');
+          const about = document.querySelector('a[aria-label="About Baukasten"]');
+          const range = document.createRange();
+          range.selectNodeContents(title);
+          const text = range.getBoundingClientRect();
+          const action = about.getBoundingClientRect();
+          return text.left < action.right && text.right > action.left
+            && text.top < action.bottom && text.bottom > action.top;
+        });
+        assert.equal(overlap, false, `site title overlaps About action at ${width}px`);
+      }
 
       const bodyBackground = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
       assert.equal(bodyBackground, 'rgb(240, 242, 245)', 'compiled utilities must style the page');
@@ -94,10 +129,13 @@ try {
     for (const href of projectLinks) {
       await page.goto(base + href, { waitUntil: 'domcontentloaded' });
       await page.locator('main h1').waitFor();
+      await page.getByRole('heading', { name: 'Try this first', exact: true }).waitFor();
+      await page.getByRole('heading', { name: 'How it works', exact: true }).waitFor();
       const overflow = await page.evaluate(() =>
         document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
       );
       assert.equal(overflow, false, `project page ${href} overflows at ${width}px`);
+      await verifyImages(page);
     }
 
     if (width === 390) {
@@ -107,6 +145,9 @@ try {
       assert.equal(new URL(page.url()).hash, '#/projects/circuit');
       await page.goBack();
       await page.getByRole('heading', { name: 'BAUKASTEN', exact: true }).waitFor();
+      for (const name of ['Practise recall', 'Use English in conversation', 'Explore history and philosophy', 'Read connected research']) {
+        await page.getByRole('heading', { name, exact: true }).waitFor();
+      }
       await page.getByRole('link', { name: 'About Baukasten' }).click();
       await page.getByRole('heading', { name: 'Why Baukasten exists' }).waitFor();
       await page.goBack();
@@ -116,7 +157,7 @@ try {
     await page.close();
   }
 
-  console.log('Visual smoke passed: every project, home and About across six viewport widths.');
+  console.log('Visual smoke passed: task groups, first exercises, workflows, every project, home and About across six viewport widths.');
 } finally {
   await browser?.close();
   server.kill('SIGTERM');

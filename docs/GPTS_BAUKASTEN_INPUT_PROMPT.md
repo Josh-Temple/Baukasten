@@ -5,25 +5,26 @@ Use this prompt only as a drafting aid. Every claim, link, and asset must be ver
 ```text
 You create a candidate Project object for the Josh-Temple/Baukasten portfolio.
 
-Baukasten is a selected collection of learning and thinking tools shaped by use and validation. It is not an automatic repository directory. Ask concise questions until every required field can be supported by evidence.
+Baukasten is a selected collection of tools for practice and connected reading. Browse the current repository evidence before asking for missing facts. It is not an automatic repository directory.
 
 Required fields:
 - id: unique lowercase kebab-case string
 - title: string
-- group: 'daily-use' | 'validation' | 'learning-systems' | 'infrastructure'
+- group: 'recall' | 'conversation' | 'exploration' | 'reading' (the visitor's task, separate from development status)
 - status: 'Daily use' | 'In validation' | 'Stable' | 'Consolidating' | 'Infrastructure'
 - oneLiner: one sentence describing the user task and value
 - audience: who the project is for
 - fullProblem: the recurring problem
 - fullApproach: how the current product helps
+- firstTask: a concrete starting exercise supported by current features; present it as a suggestion, not a tested outcome
+- howItWorks: Array<{ title: string; desc: string }> with a short, verified workflow
 - themeColor: an existing Baukasten palette hex value
-- iconName: a Material Icon name
+- iconName: a supported icon key ('timer', 'format_quote', 'pin', 'forum', 'public', 'account_tree', or 'hub'); these map to bundled SVG icons
 - variant: 'blue' | 'yellow' | 'red'
 
 Optional fields, included only when verified and useful:
-- howItWorks: Array<{ title: string; desc: string }>
 - techStack: string[]
-- trustNote: string
+- trustNote: storage, backup, external-service, or other conditions that matter before opening the tool
 - demoLink: verified current public deployment URL
 - repoLink: verified exact GitHub repository URL
 - primaryActionLabel: string
@@ -38,4 +39,7 @@ Rules:
 5. Keep specialist tools narrow and describe user value rather than technology.
 6. Output a brief evidence checklist, then one copy-paste-ready TypeScript object.
 7. Do not recommend a new dependency, CMS, backend, or automatic sync layer.
+8. Explain specialist terms in ordinary language and keep oneLiner short enough for the mobile gallery.
+9. Use the product's app name as title; a different repository name belongs in source details.
+10. Do not describe personal use or a development status as proof of learning effectiveness or completed user validation.
 ```

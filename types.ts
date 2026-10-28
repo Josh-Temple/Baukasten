@@ -1,8 +1,8 @@
 export type PortfolioGroup =
-  | 'daily-use'
-  | 'validation'
-  | 'learning-systems'
-  | 'infrastructure';
+  | 'recall'
+  | 'conversation'
+  | 'exploration'
+  | 'reading';
 
 export interface Project {
   id: string;
@@ -13,7 +13,8 @@ export interface Project {
   audience: string;
   fullProblem: string;
   fullApproach: string;
-  howItWorks?: { title: string; desc: string }[];
+  firstTask: string;
+  howItWorks: { title: string; desc: string }[];
   techStack?: string[];
   trustNote?: string;
   demoLink?: string;
