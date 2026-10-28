@@ -47,7 +47,7 @@ try {
   const productionHtml = await (await fetch(base)).text();
   assert.ok(!productionHtml.includes('cdn.tailwindcss.com'), 'production must not depend on Tailwind CDN');
   assert.ok(!productionHtml.includes('type="importmap"'), 'unused runtime import map must be removed');
-  assert.match(productionHtml, /assets\\/[^"']+\\.css/, 'Vite must emit a static CSS bundle');
+  assert.match(productionHtml, /assets\/[^"']+\.css/, 'Vite must emit a static CSS bundle');
 
   browser = await chromium.launch({ headless: true });
 
