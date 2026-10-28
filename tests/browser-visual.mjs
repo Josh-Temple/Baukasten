@@ -8,7 +8,7 @@ import { chromium } from 'playwright';
 const port = 4173;
 const base = `http://127.0.0.1:${port}/`;
 const captureDir = path.resolve('visual-qa');
-const viewports = [320, 360, 390, 768, 1280];
+const viewports = [320, 360, 390, 768, 1024, 1280];
 const routes = [
   { hash: '', name: 'home', heading: 'BAUKASTEN' },
   { hash: '#/projects/circuit', name: 'circuit', heading: 'CIRCUIT' },
@@ -75,6 +75,24 @@ try {
       });
     }
 
+    // Every currently published project uses the same detail layout, but
+    // their title lengths and screenshots differ; verify all of them.
+    await page.goto(base, { waitUntil: 'domcontentloaded' });
+    await page.getByRole('heading', { name: 'BAUKASTEN', exact: true }).waitFor();
+    const projectLinks = await page.locator('main a[href^="#/projects/"]').evaluateAll(
+      elements => elements.map(element => element.getAttribute('href')).filter(Boolean),
+    );
+    assert.equal(projectLinks.length, 7, 'all seven curated projects should be reachable');
+
+    for (const href of projectLinks) {
+      await page.goto(base + href, { waitUntil: 'domcontentloaded' });
+      await page.locator('main h1').waitFor();
+      const overflow = await page.evaluate(() =>
+        document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+      );
+      assert.equal(overflow, false, `project page ${href} overflows at ${width}px`);
+    }
+
     if (width === 390) {
       await page.goto(base, { waitUntil: 'domcontentloaded' });
       await page.getByRole('link', { name: 'CIRCUIT', exact: true }).click();
@@ -91,7 +109,7 @@ try {
     await page.close();
   }
 
-  console.log('Visual smoke passed: home, detail and About across five viewport widths.');
+  console.log('Visual smoke passed: every project, home and About across six viewport widths.');
 } finally {
   await browser?.close();
   server.kill('SIGTERM');
