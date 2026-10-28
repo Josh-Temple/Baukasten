@@ -94,7 +94,8 @@ Before adding new components or changing existing UI, review this guide first.
 
 ## 7. Implementation Workflow Rules
 
-- If you introduce a new color, add it to this file before using it in code.
+- If you introduce a new color, add it to this file and the appropriate `tailwind.config.cjs` token before using it in code.
+- Tailwind v3 utilities are compiled at build time through PostCSS (`styles.css`). Do not reintroduce the runtime Play CDN or browser-side Tailwind config.
 - For UI-related PRs, update the following as needed:
   1. The target component(s)
   2. This guide (if design rules are affected)

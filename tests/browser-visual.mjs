@@ -44,6 +44,10 @@ try {
     await sleep(250);
   }
   assert.ok(ready, 'preview server did not start');
+  const productionHtml = await (await fetch(base)).text();
+  assert.ok(!productionHtml.includes('cdn.tailwindcss.com'), 'production must not depend on Tailwind CDN');
+  assert.ok(!productionHtml.includes('type="importmap"'), 'unused runtime import map must be removed');
+  assert.match(productionHtml, /assets\/[^"']+\.css/, 'Vite must emit a static CSS bundle');
 
   browser = await chromium.launch({ headless: true });
 
@@ -58,6 +62,9 @@ try {
       await page.goto(base + route.hash, { waitUntil: 'domcontentloaded' });
       await page.getByRole('heading', { name: route.heading, exact: true }).waitFor();
       await page.evaluate(() => document.fonts.ready);
+
+      const bodyBackground = await page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+      assert.equal(bodyBackground, 'rgb(240, 242, 245)', 'compiled utilities must style the page');
 
       const dimensions = await page.evaluate(() => ({
         scrollWidth: document.documentElement.scrollWidth,

@@ -4,6 +4,13 @@ on:
   pull_request:
     paths:
       - 'App.tsx'
+      - 'index.html'
+      - 'index.tsx'
+      - 'styles.css'
+      - 'tailwind.config.cjs'
+      - 'postcss.config.cjs'
+      - 'package.json'
+      - 'package-lock.json'
       - 'components/**'
       - 'UI_GUIDELINES.md'
       - 'tests/browser-visual.mjs'
