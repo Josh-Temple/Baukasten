@@ -55,20 +55,20 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-[#F0F2F5] text-slate-900 font-sans pb-24 overflow-x-hidden selection:bg-black selection:text-white">
+    <div className="min-h-screen bg-[#F0F2F5] text-slate-900 font-sans pb-20 overflow-x-hidden selection:bg-black selection:text-white">
       <Header />
-      <main tabIndex={-1} className="w-full max-w-6xl mx-auto px-6 lg:px-8 focus:outline-none">
-        <p className="max-w-xl text-sm sm:text-base font-bold leading-relaxed text-slate-600 mb-20 lg:mb-24">
+      <main tabIndex={-1} className="w-full max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 focus:outline-none">
+        <p className="max-w-2xl text-base font-medium leading-relaxed text-slate-700 mb-14 sm:mb-16 lg:mb-20">
           Small learning and thinking tools, built through repeated personal use and real-world validation. Some are tools I use regularly; others are being tested, consolidated, or developed as longer-term learning systems.
         </p>
-        <div className="space-y-24 lg:space-y-32">
+        <div className="space-y-16 sm:space-y-20 lg:space-y-24">
           {PORTFOLIO_GROUPS.map(group => (
             <section key={group.id} aria-labelledby={`group-${group.id}`}>
-              <header className="mb-10 max-w-xl border-l-4 border-[#BD5B5B] pl-5">
-                <h2 id={`group-${group.id}`} className="text-xl font-black tracking-tight text-slate-900">{group.title}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-slate-500">{group.description}</p>
+              <header className="mb-7 sm:mb-9 max-w-2xl border-b border-slate-300 pb-5 sm:pb-6">
+                <h2 id={`group-${group.id}`} className="text-2xl font-black tracking-tight text-slate-900">{group.title}</h2>
+                <p className="mt-2 text-sm sm:text-base leading-relaxed text-slate-600">{group.description}</p>
               </header>
-              <div className="space-y-14 md:grid md:grid-cols-2 md:gap-x-12 md:gap-y-16 md:space-y-0 lg:gap-x-16">
+              <div className="space-y-7 sm:space-y-9 lg:grid lg:grid-cols-2 lg:gap-x-12 lg:gap-y-10 lg:space-y-0">
                 {PROJECTS.filter(project => project.group === group.id).map(project => (
                   <ProjectCard key={project.id} project={project} />
                 ))}
@@ -77,7 +77,7 @@ const App: React.FC = () => {
           ))}
         </div>
       </main>
-      <footer className="mt-24 text-center text-[0.6rem] font-black uppercase tracking-[0.45em] text-slate-400">End of collection</footer>
+      <footer className="mt-20 px-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">End of collection</footer>
     </div>
   );
 };
