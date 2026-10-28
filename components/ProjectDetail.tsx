@@ -1,18 +1,19 @@
 import React from 'react';
 import { Project } from '../types';
+import { HOME_HASH } from '../navigation.js';
 
 const assetUrl = (path: string) => `./${path.replace(/^\//, '')}`;
 
-export const ProjectDetail: React.FC<{ project: Project; onBack: () => void }> = ({ project, onBack }) => {
+export const ProjectDetail: React.FC<{ project: Project }> = ({ project }) => {
   const primaryLink = project.demoLink || project.repoLink;
   const primaryLabel = project.primaryActionLabel || (project.demoLink ? 'Open app' : 'View source');
   return (
     <div className="min-h-screen bg-[#F0F2F5] text-slate-900 pb-32 overflow-x-hidden">
       <nav className="sticky top-0 z-40 bg-[#F0F2F5]/90 backdrop-blur-2xl px-6 py-5 flex items-center justify-between border-b border-slate-200">
-        <button onClick={onBack} aria-label="Back to projects" className="w-12 h-12 rounded-2xl flex items-center justify-center text-slate-500 bg-white border border-slate-200 shadow-sm active:scale-90 focus-visible:outline focus-visible:outline-2"><span className="material-icons" aria-hidden="true">chevron_left</span></button>
+        <a href={HOME_HASH} aria-label="Back to projects" className="w-12 h-12 rounded-2xl flex items-center justify-center text-slate-500 bg-white border border-slate-200 shadow-sm active:scale-90 focus-visible:outline focus-visible:outline-2"><span className="material-icons" aria-hidden="true">chevron_left</span></a>
         <span className="text-sm font-black uppercase tracking-tight text-slate-800 text-center px-3">{project.title}</span><div className="w-12" />
       </nav>
-      <main className="max-w-4xl mx-auto px-6 lg:px-8">
+      <main tabIndex={-1} className="focus:outline-none max-w-4xl mx-auto px-6 lg:px-8">
         <header className="py-16 lg:py-20 text-center max-w-2xl mx-auto">
           <span className="inline-flex px-4 py-1.5 rounded-xl bg-white border border-slate-200 text-[0.6rem] font-black text-slate-600 tracking-[0.2em] uppercase mb-7">{project.status}</span>
           <h1 className="text-4xl sm:text-6xl font-black tracking-tighter text-slate-900 mb-7 leading-[0.9] break-words">{project.title}</h1>
