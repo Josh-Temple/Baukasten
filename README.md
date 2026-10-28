@@ -21,6 +21,10 @@ The current selection is CIRCUIT, Engrave, Majoris, Parla, World History Lab, No
 
 Only links whose repository or current deployment can be verified should be added. An unavailable or unverified app must not receive a placeholder CTA. Content is kept in TypeScript: this site intentionally uses no CMS, database, GitHub API synchronization, or external JSON feed.
 
+## Navigation
+
+Project cards and the About page use shareable fragment URLs such as `#/projects/circuit` and `#/about`. Fragment routing is intentional: GitHub Pages does not provide SPA rewrites for clean path-based URLs, but these links survive direct visits, refreshes, and browser Back/Forward navigation. Do not replace them with `/projects/...` URLs without first generating matching static entry pages.
+
 ## Local development
 
 **Prerequisite:** Node.js 20 or later (matching the deployment workflow).
@@ -28,6 +32,14 @@ Only links whose repository or current deployment can be verified should be adde
 ```bash
 npm install
 npm run dev
+```
+
+Before opening a PR, verify navigation and the production build:
+
+```bash
+npm run typecheck
+npm test
+npm run build
 ```
 
 Vite serves the site locally (normally at `http://localhost:3000`). To type-check and create the production bundle:
