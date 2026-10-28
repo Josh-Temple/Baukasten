@@ -1,4 +1,5 @@
 import React from 'react';
+import { HOME_HASH } from '../navigation.js';
 
 const statuses = [
   ['Daily use', 'used repeatedly in the creator’s own practice'],
@@ -8,10 +9,10 @@ const statuses = [
   ['Infrastructure', 'supports research, writing, or other tools'],
 ];
 
-export const InfoView: React.FC<{ onBack: () => void }> = ({ onBack }) => (
+export const InfoView: React.FC = () => (
   <div className="min-h-screen bg-[#F0F2F5] text-slate-900 pb-24 overflow-x-hidden">
-    <nav className="sticky top-0 z-40 bg-[#F0F2F5]/90 backdrop-blur-2xl px-6 py-5 flex items-center justify-between border-b border-slate-200"><button onClick={onBack} aria-label="Back to projects" className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white border border-slate-200 text-slate-500 shadow-sm active:scale-90 focus-visible:outline focus-visible:outline-2"><span className="material-icons" aria-hidden="true">chevron_left</span></button><span className="text-base font-black uppercase">About</span><div className="w-12" /></nav>
-    <main className="max-w-2xl mx-auto px-8 pt-16 lg:pt-20">
+    <nav className="sticky top-0 z-40 bg-[#F0F2F5]/90 backdrop-blur-2xl px-6 py-5 flex items-center justify-between border-b border-slate-200"><a href={HOME_HASH} aria-label="Back to projects" className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white border border-slate-200 text-slate-500 shadow-sm active:scale-90 focus-visible:outline focus-visible:outline-2"><span className="material-icons" aria-hidden="true">chevron_left</span></a><span className="text-base font-black uppercase">About</span><div className="w-12" /></nav>
+    <main tabIndex={-1} className="focus:outline-none max-w-2xl mx-auto px-8 pt-16 lg:pt-20">
       <div className="w-36 h-36 rounded-full shadow-toy relative mx-auto mb-20 overflow-hidden bg-white" aria-hidden="true"><div className="absolute top-0 left-0 w-20 h-20 bg-[#BD5B5B]"/><div className="absolute bottom-0 right-0 w-20 h-20 bg-[#5B7A96] rounded-full translate-x-1/4 translate-y-1/4"/><div className="absolute top-1/2 left-1/2 w-10 h-10 bg-[#DCA258] rotate-45 -translate-x-1/2 -translate-y-1/2"/></div>
       <div className="space-y-20 lg:space-y-24">
         <section><h1 className="text-3xl lg:text-4xl font-black tracking-tighter mb-6">Why Baukasten exists</h1><p className="text-base lg:text-lg font-bold leading-relaxed text-slate-600">Baukasten is a collection of small learning and thinking tools built around recurring problems. The projects are shaped by repeated personal use, then tested or refined when they may help other people.</p></section>
