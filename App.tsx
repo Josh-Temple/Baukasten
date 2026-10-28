@@ -1,25 +1,64 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Header } from './components/Header';
 import { ProjectCard } from './components/ProjectCard';
 import { ProjectDetail } from './components/ProjectDetail';
 import { InfoView } from './components/InfoView';
+import { HOME_HASH, resolveRoute } from './navigation.js';
 import { PORTFOLIO_GROUPS, PROJECTS } from './constants';
 
-type ViewState = 'gallery' | 'project' | 'info';
-
 const App: React.FC = () => {
-  const [view, setView] = useState<ViewState>('gallery');
-  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
-  const selectedProject = useMemo(() => PROJECTS.find(project => project.id === selectedProjectId), [selectedProjectId]);
-  const goHome = () => { setView('gallery'); setSelectedProjectId(null); window.scrollTo(0, 0); };
+  const [route, setRoute] = useState(() => resolveRoute(window.location.hash, PROJECTS));
+  const hasMounted = useRef(false);
+  const selectedProject = route.view === 'project'
+    ? PROJECTS.find(project => project.id === route.projectId)
+    : undefined;
 
-  if (view === 'project' && selectedProject) return <ProjectDetail project={selectedProject} onBack={goHome} />;
-  if (view === 'info') return <InfoView onBack={goHome} />;
+  useEffect(() => {
+    const handleHashChange = () => {
+      setRoute(resolveRoute(window.location.hash, PROJECTS));
+      window.scrollTo(0, 0);
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  useEffect(() => {
+    document.title = selectedProject
+      ? `${selectedProject.title} — Baukasten`
+      : route.view === 'info' ? 'About — Baukasten' : 'Baukasten — Learning tools built through use';
+
+    // Move keyboard/screen-reader focus into the new view after in-page navigation.
+    // Do not steal focus on first load or direct-link refresh.
+    if (hasMounted.current) {
+      document.querySelector<HTMLElement>('main')?.focus({ preventScroll: true });
+    } else {
+      hasMounted.current = true;
+    }
+  }, [route.view, route.projectId, selectedProject]);
+
+  if (route.view === 'project' && selectedProject) {
+    return <ProjectDetail project={selectedProject} />;
+  }
+  if (route.view === 'info') return <InfoView />;
+  if (route.view === 'not-found') {
+    return (
+      <div className="min-h-screen bg-[#F0F2F5] text-slate-900 px-6">
+        <main tabIndex={-1} className="max-w-2xl mx-auto pt-24 focus:outline-none">
+          <p className="text-xs font-black uppercase tracking-widest text-slate-500 mb-4">Page not found</p>
+          <h1 className="text-3xl font-black tracking-tight mb-5">This project page isn't available.</h1>
+          <p className="text-base leading-relaxed text-slate-600 mb-8">The link may be outdated. Browse the current collection instead.</p>
+          <a href={HOME_HASH} className="inline-flex min-h-11 items-center rounded-xl bg-[#1A1A1A] px-6 text-white font-bold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">
+            Back to projects
+          </a>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#F0F2F5] text-slate-900 font-sans pb-24 overflow-x-hidden selection:bg-black selection:text-white">
-      <Header onInfoClick={() => setView('info')} />
-      <main className="w-full max-w-6xl mx-auto px-6 lg:px-8">
+      <Header />
+      <main tabIndex={-1} className="w-full max-w-6xl mx-auto px-6 lg:px-8 focus:outline-none">
         <p className="max-w-xl text-sm sm:text-base font-bold leading-relaxed text-slate-600 mb-20 lg:mb-24">
           Small learning and thinking tools, built through repeated personal use and real-world validation. Some are tools I use regularly; others are being tested, consolidated, or developed as longer-term learning systems.
         </p>
@@ -32,7 +71,7 @@ const App: React.FC = () => {
               </header>
               <div className="space-y-14 md:grid md:grid-cols-2 md:gap-x-12 md:gap-y-16 md:space-y-0 lg:gap-x-16">
                 {PROJECTS.filter(project => project.group === group.id).map(project => (
-                  <ProjectCard key={project.id} project={project} onClick={() => { setSelectedProjectId(project.id); setView('project'); window.scrollTo(0, 0); }} />
+                  <ProjectCard key={project.id} project={project} />
                 ))}
               </div>
             </section>
