@@ -8,7 +8,7 @@ import { PORTFOLIO_GROUPS, PROJECTS } from './constants';
 
 const App: React.FC = () => {
   const [route, setRoute] = useState(() => resolveRoute(window.location.hash, PROJECTS));
-  const hasMounted = useRef(false);
+  const lastRenderedHash = useRef(window.location.hash);
   const selectedProject = route.view === 'project'
     ? PROJECTS.find(project => project.id === route.projectId)
     : undefined;
@@ -29,10 +29,9 @@ const App: React.FC = () => {
 
     // Move keyboard/screen-reader focus into the new view after in-page navigation.
     // Do not steal focus on first load or direct-link refresh.
-    if (hasMounted.current) {
+    if (lastRenderedHash.current !== window.location.hash) {
       document.querySelector<HTMLElement>('main')?.focus({ preventScroll: true });
-    } else {
-      hasMounted.current = true;
+      lastRenderedHash.current = window.location.hash;
     }
   }, [route.view, route.projectId, selectedProject]);
 
