@@ -1,13 +1,7 @@
 import React from 'react';
+import { ChevronLeft } from 'lucide-react';
 import { HOME_HASH } from '../navigation.js';
-
-const statuses = [
-  ['Daily use', 'used repeatedly in the creator’s own practice'],
-  ['In validation', 'currently being tested with real users'],
-  ['Stable', 'usable and not under active expansion'],
-  ['Consolidating', 'existing material is being simplified or connected'],
-  ['Infrastructure', 'supports research, writing, or other tools'],
-];
+import { PROJECT_STATUSES } from '../constants';
 
 export const InfoView: React.FC = () => (
   <div className="min-h-screen bg-[#F0F2F5] text-slate-900 pb-20">
@@ -17,7 +11,7 @@ export const InfoView: React.FC = () => (
         aria-label="Back to projects"
         className="w-11 h-11 rounded-xl flex items-center justify-center bg-white border border-slate-300 text-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
       >
-        <span className="material-icons" aria-hidden="true">chevron_left</span>
+        <ChevronLeft className="w-6 h-6" aria-hidden="true" />
       </a>
       <span className="text-sm font-bold uppercase tracking-wide">About</span>
       <div className="w-11" aria-hidden="true" />
@@ -31,17 +25,15 @@ export const InfoView: React.FC = () => (
       <div className="space-y-12 sm:space-y-14">
         <section>
           <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-5">Why Baukasten exists</h1>
-          <p className="text-base sm:text-lg leading-relaxed text-slate-700">Baukasten is a collection of small learning and thinking tools built around recurring problems. The projects are shaped by repeated personal use, then tested or refined when they may help other people.</p>
+          <p className="text-base sm:text-lg leading-relaxed text-slate-700">Baukasten brings together tools for focused practice and connected reading: mental maths, text recall, English conversation, history, philosophy, and research. Each project page explains the task, suggests a first exercise, and describes how to use the tool.</p>
         </section>
         <section className="border-t border-slate-300 pt-8">
           <h2 className="text-xl font-black mb-5">How projects are selected</h2>
           <ul className="space-y-3">
             {[
-              'Solves a recurring problem',
-              'Has evidence of real use',
-              'Supports a clear user task',
-              'Has an honest current status',
-              'Adds a distinct idea to the collection',
+              'A specific learning or reading task',
+              'A distinct workflow that can be useful on its own',
+              'A clear account of current features and conditions for use',
             ].map(item => (
               <li key={item} className="flex items-start gap-3 text-base leading-relaxed text-slate-700">
                 <span className="shrink-0 w-2 h-2 mt-2 rounded-full bg-[#BD5B5B]" aria-hidden="true" />
@@ -52,18 +44,15 @@ export const InfoView: React.FC = () => (
         </section>
         <section className="border-t border-slate-300 pt-8">
           <h2 className="text-xl font-black mb-5">Status meanings</h2>
+          <p className="text-base leading-relaxed text-slate-700 mb-6">The collection is grouped by task. Status labels describe the creator’s use or development focus; they do not measure learning outcomes.</p>
           <dl className="grid gap-5 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-7">
-            {statuses.map(([term, meaning]) => (
+            {Object.entries(PROJECT_STATUSES).map(([term, meaning]) => (
               <div key={term}>
                 <dt className="text-sm font-bold text-slate-900">{term}</dt>
                 <dd className="mt-1 text-sm leading-relaxed text-slate-700">{meaning}</dd>
               </div>
             ))}
           </dl>
-        </section>
-        <section className="border-t border-slate-300 pt-8">
-          <h2 className="text-xl font-black mb-5">Current approach</h2>
-          <p className="text-base sm:text-lg leading-relaxed text-slate-700">Use before expansion. Validate before major features. Keep specialist tools specialist when their narrow focus is their strength.</p>
         </section>
       </div>
       <footer className="mt-16 pt-8 border-t border-slate-300 text-center text-xs font-semibold uppercase tracking-wider text-slate-600">

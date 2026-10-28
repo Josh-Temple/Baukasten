@@ -25,7 +25,9 @@ const App: React.FC = () => {
   useEffect(() => {
     document.title = selectedProject
       ? `${selectedProject.title} — Baukasten`
-      : route.view === 'info' ? 'About — Baukasten' : 'Baukasten — Learning tools built through use';
+      : route.view === 'info' ? 'About — Baukasten'
+      : route.view === 'not-found' ? 'Page not found — Baukasten'
+      : 'Baukasten — Tools for practice and connected reading';
 
     // Move keyboard/screen-reader focus into the new view after in-page navigation.
     // Do not steal focus on first load or direct-link refresh.
@@ -59,7 +61,7 @@ const App: React.FC = () => {
       <Header />
       <main tabIndex={-1} className="w-full max-w-6xl mx-auto px-5 sm:px-6 lg:px-8 focus:outline-none">
         <p className="max-w-2xl text-base font-medium leading-relaxed text-slate-700 mb-14 sm:mb-16 lg:mb-20">
-          Small learning and thinking tools, built through repeated personal use and real-world validation. Some are tools I use regularly; others are being tested, consolidated, or developed as longer-term learning systems.
+          Practise mental maths, recall a passage, use English with an AI, or explore history, philosophy, and research. Browse by task, then open a project to see a first exercise and how it works.
         </p>
         <div className="space-y-16 sm:space-y-20 lg:space-y-24">
           {PORTFOLIO_GROUPS.map(group => (
@@ -77,7 +79,9 @@ const App: React.FC = () => {
           ))}
         </div>
       </main>
-      <footer className="mt-20 px-5 text-center text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">End of collection</footer>
+      <footer className="mt-20 px-5 text-center text-sm text-slate-600">
+        <a href="#/about" className="inline-flex min-h-11 items-center underline underline-offset-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4">About this collection</a>
+      </footer>
     </div>
   );
 };

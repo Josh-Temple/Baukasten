@@ -1,9 +1,22 @@
 import React from 'react';
+import { ArrowRight, Timer, Quote, Hash, MessagesSquare, Globe, Network, Workflow, Shapes } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Project } from '../types';
 import { projectHref } from '../navigation.js';
 
+const PROJECT_ICONS: Record<string, LucideIcon> = {
+  timer: Timer,
+  format_quote: Quote,
+  pin: Hash,
+  forum: MessagesSquare,
+  public: Globe,
+  account_tree: Network,
+  hub: Workflow,
+};
+
 export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const image = project.cardImage ? `./${project.cardImage.replace(/^\//, '')}` : undefined;
+  const ProjectIcon = PROJECT_ICONS[project.iconName] || Shapes;
 
   return (
     <article className="group">
@@ -24,7 +37,7 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
               loading="lazy"
             />
           ) : (
-            <span className="material-icons text-5xl opacity-80" aria-hidden="true">{project.iconName}</span>
+            <ProjectIcon className="w-12 h-12 opacity-80" aria-hidden="true" />
           )}
         </div>
         <div className="min-w-0 flex-1">
@@ -37,7 +50,7 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           <p className="mt-2 text-sm leading-relaxed font-medium text-slate-700">{project.oneLiner}</p>
           <p className="mt-3 text-xs font-semibold text-slate-600">{project.status}</p>
           <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-slate-900 underline underline-offset-4 decoration-slate-400 group-hover:decoration-slate-900">
-            View project <span className="material-icons text-base" aria-hidden="true">arrow_forward</span>
+            View project <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
           </span>
         </div>
       </a>

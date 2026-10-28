@@ -79,7 +79,8 @@ Before adding new components or changing existing UI, review this guide first.
 - Card lists:
   - Do not over-increase information density; keep one card focused on one key message
 - Icons:
-  - Use Material Icons and avoid making icons more dominant than the text hierarchy
+  - Use bundled Lucide SVG icons from the existing `lucide-react` dependency. Keep decorative icons `aria-hidden` and retain text or an accessible name on the enclosing control.
+  - Do not depend on an external icon font: failed font requests must not expose icon names or expand navigation and action labels.
 
 ## 6. Motion / Interaction
 

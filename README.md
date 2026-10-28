@@ -1,23 +1,25 @@
 # Baukasten
 
-**Small learning and thinking tools, built through repeated personal use and real-world validation.**
+**Tools for practice and connected reading.**
 
-Baukasten is a deliberately selected portfolio, not a technical-demo archive or an automatic list of repositories. Each project addresses a recurring problem, supports a clear task, has evidence of use, and states its current status honestly.
+Baukasten is a deliberately selected collection of learning and reading tools. Visitors browse by task, then open a project to find a first exercise, a short workflow, and relevant conditions for use. Descriptions distinguish implemented features from intended learning benefits.
 
 ## Portfolio structure
 
 Projects appear in four groups:
 
-1. **Tools I use regularly** — tools shaped by recurring problems in personal learning practice.
-2. **Currently validating** — products tested with real users before major features are added.
-3. **Learning systems** — larger environments for understanding relationships, causes, and ideas.
-4. **Knowledge infrastructure** — systems that turn research into connected, reusable knowledge.
+1. **Practise recall** — CIRCUIT, Engrave, and Majoris.
+2. **Use English in conversation** — Parla.
+3. **Explore history and philosophy** — World History Lab and Noema.
+4. **Read connected research** — Lumen.
 
-The current selection is CIRCUIT, Engrave, Majoris, Parla, World History Lab, Noema, and Lumen / Commonplace.
+Status labels describe personal use or development focus, separately from the task groups. They do not represent measured learning outcomes. Lumen is the app name; Commonplace is its repository name. Its existing `lumen-commonplace` project URL is retained.
 
 ## Content management
 
-`constants.ts` remains the single source of truth. The `PROJECTS` array stores each project's group, status, one-line value, audience, problem, approach, optional workflow and technical details, verified links, and real screenshot paths. `PORTFOLIO_GROUPS` stores group headings and descriptions.
+`constants.ts` remains the single source of truth. The `PROJECTS` array stores each project's group, status, one-line value, audience, problem, approach, first exercise (`firstTask`), workflow (`howItWorks`), optional technical details, verified links, and real screenshot paths. `PORTFOLIO_GROUPS` stores task headings and descriptions; `PROJECT_STATUSES` stores the status definitions used on the About page.
+
+Keep one-line descriptions short enough to scan beside a mobile screenshot. Put important storage or external-service conditions in `trustNote`, near the app action. Describe Lumen as a viewer of a published collection, rather than an in-browser note importer/editor. Parla's conversation takes place in an external AI app. Do not add usage, user-count, validation, or effectiveness claims without evidence. See `docs/CONTENT_REVIEW_2026-10-29.md` for the sources and verification limits of this revision.
 
 Only links whose repository or current deployment can be verified should be added. An unavailable or unverified app must not receive a placeholder CTA. Content is kept in TypeScript: this site intentionally uses no CMS, database, GitHub API synchronization, or external JSON feed.
 
@@ -29,7 +31,7 @@ Project cards and the About page use shareable fragment URLs such as `#/projects
 
 **Prerequisite:** Node.js 20 or later (matching the deployment workflow).
 
-Tailwind CSS v3 is compiled with PostCSS during the Vite build. Edit utilities in components and shared visual tokens in `tailwind.config.cjs`; the production site does not load Tailwind from a runtime CDN. Google Fonts and Material Icons remain network-hosted assets and are not included in this dependency change.
+Tailwind CSS v3 is compiled with PostCSS during the Vite build. Edit utilities in components and shared visual tokens in `tailwind.config.cjs`; the production site does not load Tailwind from a runtime CDN. Active controls use bundled Lucide SVG icons. Google Fonts remains an optional network-hosted typography resource; controls must remain usable when font requests fail.
 
 ```bash
 npm install
