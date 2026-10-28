@@ -9,7 +9,7 @@ Before adding new components or changing existing UI, review this guide first.
 
 - **Keywords**: `Engineered Play & Logic` / `Toy-like precision` / `Minimal archive`
 - **Experience goals**:
-  - Use generous spacing and organize information in card-based units.
+  - Use generous spacing and distinguish image-led gallery entries from text-led detail pages. Preserve whitespace and dividers instead of wrapping every section in a card.
   - Keep decoration limited to geometric accents (rounded corners, dots, short lines).
   - Keep animation short and prioritize responsive interaction feedback.
 - **Tone**:
@@ -45,21 +45,26 @@ Before adding new components or changing existing UI, review this guide first.
   - Prefer heavy weight (`font-black`) with `tracking-tight` to `tracking-tighter`
   - Prefer uppercase styling (`uppercase`) for large headings
 - Supporting labels:
-  - Use extra-small sizes (`text-[0.5rem]` to `text-[0.65rem]`) + `uppercase` + `tracking-widest`
+  - Use at least `text-xs` (0.75rem) for meaningful status, labels, captions, and action text. Decorative marks may be smaller, but required information must remain readable.
+  - Prefer moderate letter spacing for uppercase labels; avoid excessively tracked tiny text.
 - Principles:
   - Avoid mixing multiple dominant heading styles on one screen.
+  - Use normal or medium font weight for longer supporting paragraphs, reserving heavy weight for headings and primary actions.
   - Keep sufficient contrast with WCAG in mind; avoid overusing low-contrast text.
 
 ## 4. Layout / Spacing Rules
 
-- Mobile remains the baseline: content should work cleanly in a single column with `px-6` spacing.
-- Do not keep the entire site constrained to phone width on desktop. Wide gallery surfaces may expand to roughly `max-w-6xl` and use a two-column project grid when card readability is preserved.
+- Mobile remains the baseline: content should work cleanly in a single column with approximately `px-5` to `px-6` spacing.
+- Do not keep the entire site constrained to phone width on desktop. Wide gallery surfaces may expand to roughly `max-w-6xl` and use a two-column project grid at `lg` widths when card text remains readable. Avoid squeezing image-and-text entries into two columns on mid-sized tablets.
 - Reading-heavy content should remain narrower than gallery content. Prefer roughly `max-w-2xl` to `max-w-4xl` depending on whether the surface contains prose, screenshots, or supporting panels.
 - On project detail pages, prose should stay narrow enough for comfortable line length while screenshots and step panels may use the wider content area.
 - Section spacing: `space-y-12` or more; wide layouts may increase vertical rhythm rather than filling every available horizontal gap.
-- Cards:
-  - Use `rounded-2xl` or larger
-  - Use `border border-slate-200` + optional `shadow-sm` / `shadow-toy`
+- Gallery entries:
+  - Keep screenshot corners rounded (`rounded-2xl`) and treat the image, title, description and action as one clear link.
+  - Prefer a dividing line between entries instead of a full surrounding card.
+- Detail and About pages:
+  - Keep prose narrower than screenshot galleries; group sections using spacing and quiet `border-slate-300` rules.
+  - Reserve full boxed surfaces and strong shadows for interactions that genuinely need separation.
 - Sticky navigation:
   - Combine semi-transparent backgrounds with `backdrop-blur`
 
@@ -84,6 +89,7 @@ Before adding new components or changing existing UI, review this guide first.
   - Hover should usually be either a color change or slight movement (`-translate-y-1`), not both at once
   - Active should use consistent scale-down feedback (`active:scale-90` / `active:scale-95`)
 - Caution:
+  - Honor reduced-motion preferences for nonessential transforms and transitions.
   - Do not add long-running or always-looping animations
 
 ## 7. Implementation Workflow Rules
