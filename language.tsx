@@ -44,6 +44,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     }
     document.querySelector<HTMLMetaElement>('meta[property="og:locale"]')
       ?.setAttribute('content', language === 'ja' ? 'ja_JP' : 'en_US');
+    document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
+      ?.setAttribute('href', 'https://josh-temple.github.io/Baukasten/?lang=' + language);
     // The site is a client-rendered, hash-routed gallery. This updates metadata
     // for the active language, but does not claim independently indexed detail pages.
   }, [language]);
