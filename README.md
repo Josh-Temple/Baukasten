@@ -17,7 +17,7 @@ Status labels describe personal use or development focus, separately from the ta
 
 ## Content management
 
-`constants.ts` remains the single source of truth. The `PROJECTS` array stores each project's group, status, one-line value, audience, problem, approach, first exercise (`firstTask`), workflow (`howItWorks`), optional technical details, verified links, and real screenshot paths. `PORTFOLIO_GROUPS` stores task headings and descriptions; `PROJECT_STATUSES` stores the status definitions used on the About page.
+`constants.ts` remains the source of truth for the English content and all project facts, destinations, and screenshots. `localization.js` contains Japanese translations, text-only overrides, and language helpers. The `PROJECTS` array stores each project's group, status, one-line value, audience, problem, approach, first exercise (`firstTask`), workflow (`howItWorks`), optional technical details, verified links, and real screenshot paths. `PORTFOLIO_GROUPS` stores task headings and descriptions; `PROJECT_STATUSES` stores the status definitions used on the About page.
 
 Keep one-line descriptions short enough to scan beside a mobile screenshot. Put important storage or external-service conditions in `trustNote`, near the app action. Describe Lumen as a viewer of a published collection, rather than an in-browser note importer/editor. Parla's conversation takes place in an external AI app. Do not add usage, user-count, validation, or effectiveness claims without evidence. See `docs/CONTENT_REVIEW_2026-10-29.md` for the sources and verification limits of this revision.
 
@@ -26,6 +26,14 @@ Only links whose repository or current deployment can be verified should be adde
 ## Navigation
 
 Project cards and the About page use shareable fragment URLs such as `#/projects/circuit` and `#/about`. Fragment routing is intentional: GitHub Pages does not provide SPA rewrites for clean path-based URLs, but these links survive direct visits, refreshes, and browser Back/Forward navigation. Do not replace them with `/projects/...` URLs without first generating matching static entry pages.
+
+## Languages
+
+Baukasten's gallery, seven project descriptions, and About page are available in English and Japanese. A compact language control is present on all screens. Choose **日本語** or **EN**; the chosen language is saved locally when storage is available and also written into the shareable URL (for example `?lang=ja#/projects/circuit`). A valid `?lang=` parameter takes priority over the saved preference, followed by browser language detection. Existing `#/projects/...` and `#/about` links continue working.
+
+The page's `lang` and description metadata follow the selected language. This client-rendered, hash-routed site does **not** have independently pre-rendered translated project pages: do not assume separate project-level search indexing from language metadata alone. Language switching does not translate the external apps or their screenshots.
+
+When adding a project or changing its user-facing text, update its Japanese translation in `localization.js` and check the coverage tests. Preserve URLs, storage requirements, product limitations and screenshots exactly across languages.
 
 ## Local development
 

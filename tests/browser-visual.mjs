@@ -157,6 +157,57 @@ try {
     await page.close();
   }
 
+  // The Japanese layout is also checked at narrow phone and desktop widths.
+  for (const width of [320, 390, 1280]) {
+    const page = await browser.newPage({
+      viewport: { width, height: 900 },
+      deviceScaleFactor: 1,
+      reducedMotion: 'reduce',
+    });
+    await page.route(/https:\/\/fonts\.(googleapis|gstatic)\.com\//, route => route.abort());
+    await page.goto(base + '?lang=ja', { waitUntil: 'domcontentloaded' });
+    await page.getByRole('heading', { name: '記憶と反復練習' }).waitFor();
+    assert.equal(await page.locator('html').getAttribute('lang'), 'ja');
+
+    for (const hash of ['#/about', '#/projects/circuit', '#/projects/engrave', '#/projects/majoris',
+      '#/projects/parla', '#/projects/world-history-lab', '#/projects/noema', '#/projects/lumen-commonplace']) {
+      await page.goto(base + '?lang=ja' + hash, { waitUntil: 'domcontentloaded' });
+      if (hash === '#/about') {
+        await page.getByRole('heading', { name: 'Baukastenについて' }).waitFor();
+      } else {
+        await page.getByRole('heading', { name: 'まず試してみる' }).waitFor();
+        await page.getByRole('heading', { name: '使い方' }).waitFor();
+      }
+      assert.equal(await page.locator('html').getAttribute('lang'), 'ja');
+      const overflow = await page.evaluate(() =>
+        document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+      );
+      assert.equal(overflow, false, 'Japanese page ' + hash + ' overflows at ' + width + 'px');
+      await verifyImages(page);
+    }
+
+    await page.getByRole('button', { name: 'EN', exact: true }).click();
+    assert.equal(await page.locator('html').getAttribute('lang'), 'en');
+    assert.equal(new URL(page.url()).searchParams.get('lang'), 'en');
+    await page.getByRole('heading', { name: 'Try this first' }).waitFor();
+    await page.reload();
+    assert.equal(await page.locator('html').getAttribute('lang'), 'en');
+
+    await page.getByRole('button', { name: '日本語' }).click();
+    await page.getByRole('heading', { name: 'まず試してみる' }).waitFor();
+    assert.equal(new URL(page.url()).searchParams.get('lang'), 'ja');
+    await page.reload();
+    assert.equal(await page.locator('html').getAttribute('lang'), 'ja');
+    if (width === 390) {
+      await page.screenshot({ path: path.join(captureDir, 'japanese-project-390.png'), fullPage: true });
+      await page.goto(base + '?lang=en#/about');
+      await page.getByRole('heading', { name: 'Why Baukasten exists' }).waitFor();
+      assert.equal(await page.locator('html').getAttribute('lang'), 'en',
+        'an explicit language URL must override stored preference');
+    }
+    await page.close();
+  }
+
   console.log('Visual smoke passed: task groups, first exercises, workflows, every project, home and About across six viewport widths.');
 } finally {
   await browser?.close();

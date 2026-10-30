@@ -2,19 +2,23 @@ import React from 'react';
 import { ChevronLeft } from 'lucide-react';
 import { HOME_HASH } from '../navigation.js';
 import { PROJECT_STATUSES } from '../constants';
+import { localizeStatus, localizeStatusMeaning } from '../localization.js';
+import { LanguageSwitcher, useLanguage } from '../language';
 
-export const InfoView: React.FC = () => (
+export const InfoView: React.FC = () => {
+  const { language, copy } = useLanguage();
+  return (
   <div className="min-h-screen bg-[#F0F2F5] text-slate-900 pb-20">
     <nav className="sticky top-0 z-40 bg-[#F0F2F5]/90 backdrop-blur-2xl px-5 sm:px-6 py-3 flex items-center justify-between border-b border-slate-300">
       <a
         href={HOME_HASH}
-        aria-label="Back to projects"
+        aria-label={copy.back}
         className="w-11 h-11 rounded-xl flex items-center justify-center bg-white border border-slate-300 text-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
       >
         <ChevronLeft className="w-6 h-6" aria-hidden="true" />
       </a>
-      <span className="text-sm font-bold uppercase tracking-wide">About</span>
-      <div className="w-11" aria-hidden="true" />
+      <span className="min-w-0 flex-1 text-sm text-center font-bold tracking-wide">{copy.about}</span>
+      <LanguageSwitcher />
     </nav>
     <main tabIndex={-1} className="focus:outline-none max-w-2xl mx-auto px-5 sm:px-6 pt-12 sm:pt-16">
       <div className="w-24 h-24 rounded-full relative mb-10 overflow-hidden bg-white" aria-hidden="true">
@@ -24,17 +28,13 @@ export const InfoView: React.FC = () => (
       </div>
       <div className="space-y-12 sm:space-y-14">
         <section>
-          <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-5">Why Baukasten exists</h1>
-          <p className="text-base sm:text-lg leading-relaxed text-slate-700">Baukasten brings together tools for focused practice and connected reading: mental maths, text recall, English conversation, history, philosophy, and research. Each project page explains the task, suggests a first exercise, and describes how to use the tool.</p>
+          <h1 className="text-3xl sm:text-4xl font-black tracking-tight mb-5">{copy.aboutTitle}</h1>
+          <p className="text-base sm:text-lg leading-relaxed text-slate-700">{copy.aboutBody}</p>
         </section>
         <section className="border-t border-slate-300 pt-8">
-          <h2 className="text-xl font-black mb-5">How projects are selected</h2>
+          <h2 className="text-xl font-black mb-5">{copy.selectionTitle}</h2>
           <ul className="space-y-3">
-            {[
-              'A specific learning or reading task',
-              'A distinct workflow that can be useful on its own',
-              'A clear account of current features and conditions for use',
-            ].map(item => (
+            {copy.selection.map(item => (
               <li key={item} className="flex items-start gap-3 text-base leading-relaxed text-slate-700">
                 <span className="shrink-0 w-2 h-2 mt-2 rounded-full bg-[#BD5B5B]" aria-hidden="true" />
                 {item}
@@ -43,13 +43,13 @@ export const InfoView: React.FC = () => (
           </ul>
         </section>
         <section className="border-t border-slate-300 pt-8">
-          <h2 className="text-xl font-black mb-5">Status meanings</h2>
-          <p className="text-base leading-relaxed text-slate-700 mb-6">The collection is grouped by task. Status labels describe the creator’s use or development focus; they do not measure learning outcomes.</p>
+          <h2 className="text-xl font-black mb-5">{copy.statusTitle}</h2>
+          <p className="text-base leading-relaxed text-slate-700 mb-6">{copy.statusIntro}</p>
           <dl className="grid gap-5 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-7">
             {Object.entries(PROJECT_STATUSES).map(([term, meaning]) => (
               <div key={term}>
-                <dt className="text-sm font-bold text-slate-900">{term}</dt>
-                <dd className="mt-1 text-sm leading-relaxed text-slate-700">{meaning}</dd>
+                <dt className="text-sm font-bold text-slate-900">{localizeStatus(term, language)}</dt>
+                <dd className="mt-1 text-sm leading-relaxed text-slate-700">{localizeStatusMeaning(term, meaning, language)}</dd>
               </div>
             ))}
           </dl>
@@ -60,4 +60,5 @@ export const InfoView: React.FC = () => (
       </footer>
     </main>
   </div>
-);
+  );
+};
