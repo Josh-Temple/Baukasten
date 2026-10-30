@@ -3,6 +3,8 @@ import { ArrowRight, Timer, Quote, Hash, MessagesSquare, Globe, Network, Workflo
 import type { LucideIcon } from 'lucide-react';
 import { Project } from '../types';
 import { projectHref } from '../navigation.js';
+import { localizeStatus } from '../localization.js';
+import { useLanguage } from '../language';
 
 const PROJECT_ICONS: Record<string, LucideIcon> = {
   timer: Timer,
@@ -15,6 +17,7 @@ const PROJECT_ICONS: Record<string, LucideIcon> = {
 };
 
 export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+  const { language, copy } = useLanguage();
   const image = project.cardImage ? `./${project.cardImage.replace(/^\//, '')}` : undefined;
   const ProjectIcon = PROJECT_ICONS[project.iconName] || Shapes;
 
@@ -32,7 +35,7 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
           {image ? (
             <img
               src={image}
-              alt={`${project.title} interface preview`}
+              alt={`${project.title} ${copy.imagePreview}`}
               className="absolute inset-0 h-full w-full object-cover"
               loading="lazy"
             />
@@ -48,9 +51,9 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             {project.title}
           </h3>
           <p className="mt-2 text-sm leading-relaxed font-medium text-slate-700">{project.oneLiner}</p>
-          <p className="mt-3 text-xs font-semibold text-slate-600">{project.status}</p>
+          <p className="mt-3 text-xs font-semibold text-slate-600">{localizeStatus(project.status, language)}</p>
           <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-slate-900 underline underline-offset-4 decoration-slate-400 group-hover:decoration-slate-900">
-            View project <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
+            {copy.viewProject} <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
           </span>
         </div>
       </a>
